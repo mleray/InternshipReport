@@ -1,0 +1,73 @@
+\documentclass[a4paper]{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{lmodern}
+\usepackage[left=3cm, right=3cm, bottom=4cm, top=4cm]{geometry}
+\usepackage{array}
+\usepackage{listings}
+\usepackage{sidecap}
+\usepackage{hyperref}
+\usepackage{tipa}
+\usepackage{multirow}
+\usepackage[gen]{eurosym}
+\usepackage{float}
+\usepackage{color}
+\usepackage{pifont}
+\usepackage{pdfpages}
+\DeclareUnicodeCharacter{20AC}{\euro{}}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+\newcommand{\emptypage}[0]{\newpage\thispagestyle{empty}\null\newpage}
+
+\begin{document}
+    \hypersetup{pageanchor=false}
+    \includepdf{figure/cover.pdf}
+    \hypersetup{pageanchor=true}
+
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+
+    \newpage
+
+    \setcounter{tocdepth}{2}
+    \tableofcontents
+    \setlength{\parskip}{10pt}
+
+    \newpage
+    \thispagestyle{empty}
+    \mbox{}
+
+	\newpage
+    \input{input/thanks.tex}
+
+    \newpage
+    \input{input/company.tex}
+
+    \newpage
+    \input{input/initial.tex}
+
+    \newpage
+    \input{input/internship.tex}
+
+    \newpage
+    \input{input/conclusion.tex}
+
+    \emptypage
+    \ifthenelse{\isodd{\thepage}}
+    {\emptypage}
+    {}
+    \includepdf{figure/summary.pdf}
+\end{document}
