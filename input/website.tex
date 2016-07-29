@@ -1,10 +1,29 @@
 \section{The website}
 \label{sec:website}
 
-This section describes technical aspects of the website
+This section describes the main technical characteristics of the website, and the technologies it is built with.
+It starts with the notion of Single-page application, that is explained in {\sc subsection}~\ref{ssec:spa}.
 
 \subsection{Single-page application}
 \label{ssec:spa}
+
+\url{www.konnektid.com} is a special kind of web application called Single-page application (\guillemotleft{} SPA \guillemotright{}).
+This means that it loads only one web page, and the totality of its necessary code, right from the start.
+After that initial load, all of the presentation logic is handled by the client side, through Javascript.
+When the user interacts with the page, only affected parts of it are dynamically updated, without any server intervention.
+
+This introduces the notion of \guillemotleft{} Views \guillemotright{}: they are like different versions of the same page, that differentiate by one or several HTML fragment(s).
+They appear as soon as the user interacts with the page, and sometimes several are loaded at the same time.
+They usually offer a set of functionalities, for instance a form to fill or a menu.
+
+Views have a direct impact on the DOM~\footnote{Document Object Model}, which provides a structured representation of the web page's content (elements, styles\ldots).
+In SPAs, the DOM is usually write-only, meaning that it cannot store any data or provide any information.
+All it does is updating itself as soon as a new view appears, in order to display the correct elements.
+
+The main advantage of SPAs is to create a more fluid and responsive user experience, by avoiding page reloads.
+
+There are various Javascript techniques and frameworks available for implementing SPAs.
+Among them, Konnektid uses several that are described in {\sc subsection}~\ref{ssec:frameworks}.
 
 \subsection{Frameworks and libraries}
 \label{ssec:frameworks}
