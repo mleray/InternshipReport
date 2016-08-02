@@ -62,10 +62,24 @@ Redux is a predictable container for JavaScript applications, that stocks the wh
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.8]{figure/redux_flow.png}
+    \includegraphics[scale=0.7]{figure/redux_flow.png}
     \caption{A simplified diagram of how Redux works.}
     \label{fig:reduxSumup}
 \end{figure}
 
 \subsubsection{GraphQL}
 \label{sssec:grqphql}
+
+To retrieve data from its database, Konnektid uses the GraphQL type system, to interpret queries. To be understood by GraphQL, these queries must respect a specific format illustrated on the left side of {\sc figure}~\ref{fig:query}. The provided result is an object, containing all the required fields, as visible on the right side of {\sc figure}~\ref{fig:query}. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{figure/query.png}
+    \caption{An example of GraphQL query and its result.}
+    \label{fig:query}
+\end{figure}
+
+It is noticeable that the query is shaped just like the data it returns. This makes it more natural to write and also to understand.
+Another particularity of GraphQL is that queries are encoded in the client rather than the server. This allows to return exactly what a client asks for and no more.
+
+Now that the main technologies have been introduced, it is time to start {\sc section}~\ref{sec:github} that describes the development process and the use of Github inside the Konnekid team.
