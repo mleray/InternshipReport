@@ -1,14 +1,37 @@
 \section{Github use}
 \label{sec:github}
 
+Konnektid's developers use Github as repository hosting service, to supervise and store the application code. To optimize the process of releasing new features, they use a few techniques that are presented in this section. The first one, branches management, is detailed in {\sc subsection}~\ref{ssec:branches}.
+
 \subsection{Branches}
 \label{ssec:branches}
 
-\subsection{Feature flags}
-\label{ssec:flags}
+The website is deployed in three distinct environments, each of them with its own configuration. They are described in the following paragraphs. 
+
+\paragraph{development} This is the one that developers branch out from, to start a new task on a local branch. When they are done with the code, and if it passes all the tests, the local branch is first merged in production and eventually released in \textit{alpha}.
+
+\paragraph{alpha} This branch is used to pre-release new features, so that the rest of the team can see them and give feedback. It is also used to provide further tests, fix some remaining bugs, and make sure that overall the new code is compatible with \textit{production}.
+
+\paragraph{production} This branch contains the actual code of \url{www.konnektid.com}.
+
+When implementing an important change in the code (for instance, a new overall navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It's a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This trick assures that the critical changes will not affect the other branches.
+
+A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, a pull request is opened to be manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
 
 \subsection{Reviewing process}
 \label{ssec:reviewing}
+
+When a piece of code is ready to be merged, the developer who implemented it adds a \guillemotleft{} state/need review \guillemotright{} tag to the corresponding pull request. Then, another member of the development team will take a look at the changes. This verification has three main goals:
+
+\begin{itemize}[noitemsep]
+	\item Make sure that the changes fulfill their goal;
+ 	\item Check the structure of the code (for instance the indentation);
+	\item Verify that the merge will not cause any conflicts.
+\end{itemize}
+
+If something is wrong, the reviewer replaces the previous tag by a new one, \guillemotleft{} state/need improvement \guillemotright{} with a comment in the pull request to describe what needs to be enhanced. This allows the reviewee to efficiently iterate on it. Otherwise, if everything is fine, the reviewer adds a \guillemotleft{} state/approved \guillemotright{} tag and usually merges the branch immediately.
+
+This reviewing process is rather efficient but it is very time-consuming, and it is not completely reliable as humans make mistakes. This is why Konnektid is now trying to automize these steps by implementing continuous integration, as described in {\sc subsection}~\ref{ssec:ci}.
 
 \subsection{Continuous integration}
 \label{ssec:ci}
