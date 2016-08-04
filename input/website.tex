@@ -6,8 +6,8 @@ This section describes the main technical characteristics of the website, and th
 \subsection{Single-page application}
 \label{ssec:spa}
 
-\url{www.konnektid.com} is a web application built as a single-page application (\guillemotleft{} SPA \guillemotright{}).
-A SPA distinguishes from other websites by loading one unique web page, and the totality of its necessary code, right from the start.
+\url{www.konnektid.com} is built as a single-page application (\guillemotleft{} SPA \guillemotright{}).
+A SPA distinguishes from other web applications by loading one unique web page, and the totality of its necessary code, right from the start.
 After that initial load, all of the logic (presentation, business, routing\ldots) is handled by the client side, in Konnektid's case through JavaScript.
 When the user interacts with the page, only affected parts of the user interface (\guillemotleft{} UI \guillemotright{}) are updated, without any server intervention.
 
@@ -16,7 +16,7 @@ This is achieved by using a specific architecture introduced on {\sc figure}~\re
 
 \begin{figure}[H]
     \centering
-    \includegraphics{figure/spaArchi.png}
+    \includegraphics[scale=0.6]{figure/spaArchi.png}
     \caption{The usual structure of a single-page application.}
     \label{fig:spaArchi}
 \end{figure}
@@ -31,7 +31,7 @@ A few more details about the different parts of the architecture:
 
 \begin{figure}[H]
     \centering
-    \includegraphics{figure/view.png}
+    \includegraphics[scale=0.6]{figure/view.png}
     \caption{Possible interactions between the View and the other layers.}
     \label{fig:view}
 \end{figure}
@@ -48,29 +48,29 @@ Among them, Konnektid uses several that are described in {\sc subsection}~\ref{s
 \subsection{Frameworks and libraries}
 \label{ssec:frameworks}
 
-The website is principally coded in JavaScript, HTML and SCSS. It also features a certain number of frameworks and librairies: the main ones are described
-in the present section.
+The website is principally developed in JavaScript, HTML and SCSS. It features a certain number of frameworks and librairies: the main ones are described in the present section.
 
 \subsubsection{ReactJS}
 \label{sssec:react}
 
-This is an open-source front-end JavaScript library, aiming at building user interfaces using encapsulated components. React implements a
-\guillemotleft{} virtual DOM \guillemotright{}, which is a quick representation of the actual DOM. It defines all the possible views for the page.
-When the application needs to be updated, a \textit{render()} method is called and returns the expected result, depending on the virtual DOM an the given data.
-There are two kinds of data for a React component:
+ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. 
+When a component is first initialized, it calls a \textit{render()} method that generates a \guillemotleft{} virtual DOM \guillemotright{} (a lightweight representation of the view). From this, a markup is created and inserted into the actual DOM. 
+Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
+This makes web applications much faster and easier to build~\cite{whyReact}.
 
-\paragraph{The state} It is a set of internal data, that can only be updated by the component itself using the \textit{setState()}  method.
-If no data has been received yet, the component can define an initial state. All React components do not necessary have state: if they do,
-they are called \guillemotleft{} stateful \guillemotright{}, in opposition to \guillemotleft{} stateless \guillemotright{} for the others.
-When the state of a component changes, the rendered markup is automatically updated.
+ReactJS components act just like functions: they take data as input and output the corresponding UI in return. They can manipulate two different kinds of data:
+\paragraph{The state} It is a set of internal data, that can only be updated by the component itself using the \textit{setState()}  method. All React components do not necessary have state: if they do, they are called \guillemotleft{} stateful \guillemotright{}, in opposition to \guillemotleft{} stateless \guillemotright{} for the others. Stateful components access their state via \textit{this.state}.
 
-\paragraph{The props} These properties are passed down to the component by one of its parents, and can be accessed by calling \textit{this.props}.
-They cannot be modified by the component, but to avoid issues if not provided it is possible to define default values.
-The DOM is not re-rendered every time that the component gets new props; the developer has to write the call himself.
+\paragraph{The props} These properties are passed down to the component by its parents, and can be accessed by calling \textit{this.props}. They cannot be modified by the component, but to avoid issues if not provided it is possible to define default values.
 
-Although it is not mandatory, most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
-It makes the code easier to debug, and usually faster thanks to the optimization performed during compilation. {\sc figure}~\ref{fig:jsx} demonstrates how
-much code is simplified with JSX.
+So ReactJS can be summarized as: \framebox{\textbf{component(props, state) => UI}}
+
+A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice, 
+by implementing most of its components stateless. When a state is really needed, a \guillemotleft{} container \guillemotright{} 
+is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
+
+Most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
+It makes the code easier to debug, and faster thanks to the optimization performed during compilation~\cite{whyJsx}. {\sc figure}~\ref{fig:jsx} shows that code written in JSX is much more readable than raw JavaScript.
 
 \begin{figure}[H]
     \centering
@@ -82,14 +82,25 @@ much code is simplified with JSX.
 \subsubsection{Redux}
 \label{sssec:redux}
 
-Redux is a predictable container for JavaScript applications, that stocks the whole state into one object tree called \guillemotleft{} store \guillemotright{}.
-This state is read-only: the only way to change it is to emit an \guillemotleft{} action \guillemotright{}, i.e. an object describing what happened and eventually
-passing down some data. To specify how the state tree is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions
-that take the previous state and an action, and return the next state in a new object. This behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
+Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state into one object tree called \guillemotleft{} store \guillemotright{}. 
+
+This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action 
+creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.7]{figure/redux_flow.png}
+    \includegraphics[scale=0.9]{figure/action.png}
+    \caption{An example of action creator and one of its possible outputs.}
+    \label{fig:action}
+\end{figure}
+
+To specify how the application's state is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions~\footnote{Functions that always return the same result given the same argument(s)} that take the previous state and an action, and output a new object containing the next state. The previous state is never modified, so that it can be returned in default case (e.g. for an unknown action). So it works as follows: \framebox{\textbf{reducer(previousState, action) => newState}}.
+
+The whole Redux behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{figure/reduxFlow.png}
     \caption{A simplified diagram of how Redux works.}
     \label{fig:reduxSumup}
 \end{figure}
