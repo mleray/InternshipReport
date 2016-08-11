@@ -108,12 +108,9 @@ The whole Redux behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
 \subsubsection{Node.js}
 \label{sssec:node}
 
-Konnektid's server-side code is mostly based on Node.js, an event-driven JavaScript runtime. It is particularly efficient because it uses Google Chrome's V8 engine,
-an open-source tool that is able to quickly analyze and execute JavaScript code.
+Konnektid's server-side code is mostly based on Node.js, an asynchronous event-driven JavaScript runtime. It is particularly efficient because it uses Google Chrome's open-source V8 engine, that is able to quickly analyze and execute JavaScript code~\cite{v8}.
 
-Another reason why Node.js is very fast is its non-blocking code architecture. This means that the program does not need to wait to finish an action before launching
-a new one. Instead, when starting a request, a callback function is assciated to it and will be fired as soon as the request is achieved. These notifications allow
-the system to keep working on other tasks in the meantime, as illustrated on {\sc figure}~\ref{fig:callback}.
+Node.js's non-blocking code architecture is one of the features that make it particularly fast: the program does not need to wait to finish an action before launching a new one~\cite{node}. Instead, when starting a request, a callback function is associated to it and will be fired as soon as the request is achieved. These notifications allow the system to keep working on other tasks in the meantime, as illustrated on {\sc figure}~\ref{fig:callback}.
 
 \begin{figure}[H]
     \centering
@@ -122,15 +119,14 @@ the system to keep working on other tasks in the meantime, as illustrated on {\s
     \label{fig:callback}
 \end{figure}
 
-Another strong suit of Node.js is its package ecosystem, npm (\url{https://www.npmjs.com/}), that is considered to be the largest ecosystem of open source libraries
-in the world.
+These non-blocking operations are possible in Node.js because they are handled by the multi-threaded system kernel, via an event loop~\cite{eventLoop}.
+
+Finally, another strong suit of Node.js is its package ecosystem, npm, which allows developers to share solutions to particular issues~\cite{npm}. Anyone can reuse these pieces of code in their own projects, then npm facilitates checking on updates that were made and downloading them.
 
 \subsubsection{GraphQL}
 \label{sssec:grqphql}
 
-To retrieve data from its database, Konnektid uses the GraphQL type system, to interpret queries. To be understood by GraphQL, these queries must respect a specific
-format illustrated on the left side of {\sc figure}~\ref{fig:query}. The provided result is an object, containing all the required fields, as visible on the right side
-of {\sc figure}~\ref{fig:query}.
+GraphQL is used by Konnektid to communicate between the client and the server. To be understood by GraphQL, the queries must respect a specific format illustrated on the left side of {\sc figure}~\ref{fig:query}. They are then interpreted by the server and provide a result: an object containing all the required fields, similar to the right side of {\sc figure}~\ref{fig:query}.
 
 \begin{figure}[H]
     \centering
@@ -139,8 +135,6 @@ of {\sc figure}~\ref{fig:query}.
     \label{fig:query}
 \end{figure}
 
-It is noticeable that the query is shaped just like the data it returns. This makes it more natural to write and also to understand.
-Another particularity of GraphQL is that queries are encoded in the client rather than the server. This allows to return exactly what a client asks for and no more.
+There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it. 
 
-Now that the main technologies have been introduced, it is time to start {\sc section}~\ref{sec:github} that describes the development process and the use
-of Github inside the Konnekid team.
+In the current section the main technologies have been introduced, now {\sc section}~\ref{sec:github} describes the development process and the use of Github inside the Konnekid team.

@@ -1,37 +1,38 @@
 \section{Github use}
 \label{sec:github}
 
-Konnektid's developers use Github as repository hosting service, to supervise and store the application code. To optimize the process of releasing new features, they use a few techniques that are presented in this section. The first one, branches management, is detailed in {\sc subsection}~\ref{ssec:branches}.
+Konnektid's developers use Github as repository hosting service, to supervise and store the application code. To optimize the process of releasing new features, they use a few techniques that are presented in this section. 
 
 \subsection{Branches}
 \label{ssec:branches}
 
 The website is deployed in three distinct environments, each of them with its own configuration. They are described in the following paragraphs. 
 
-\paragraph{development} This is the one that developers branch out from, to start a new task on a local branch. When they are done with the code, and if it passes all the tests, the local branch is first merged in production and eventually released in \textit{alpha}.
+\textbf{development} This is the environment that developers branch out from to create a local branch for a new task. When the code is done, and if it passes all the tests, the local branch is first merged in \textit{alpha} before being released in \textit{production}.
 
-\paragraph{alpha} This branch is used to pre-release new features, so that the rest of the team can see them and give feedback. It is also used to provide further tests, fix some remaining bugs, and make sure that overall the new code is compatible with \textit{production}.
+\textbf{alpha} This branch is used to \guillemotleft{} pre-release \guillemotright{} new features, so that the rest of the team can see them and give feedback. It is also used to provide further tests, fix remaining bugs, and make sure that the new code is compatible with \textit{production}.
 
-\paragraph{production} This branch contains the actual code of \url{www.konnektid.com}.
+\textbf{production} This branch contains the actual code of \url{www.konnektid.com}.
 
-When implementing an important change in the code (for instance, a new overall navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It's a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This trick assures that the critical changes will not affect the other branches.
+When implementing an important modification in the code (for instance, a new general navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This trick assures that the critical changes will not affect the other branches.
 
-A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, a pull request is opened to be manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
+A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed to the repository. Then, a pull request is opened and is manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
 
 \subsection{Reviewing process}
 \label{ssec:reviewing}
 
-When a piece of code is ready to be merged, the developer who implemented it adds a \guillemotleft{} state/need review \guillemotright{} tag to the corresponding pull request. Then, another member of the development team will take a look at the changes. This verification has three main goals:
+When a piece of code is ready to be merged, first in \textit{alpha}, the developer who implemented it adds a \guillemotleft{} state/need review \guillemotright{} tag to the corresponding pull request. Then, another member of the development team will take a look at the changes. This verification has three main goals:
 
 \begin{itemize}[noitemsep]
-	\item Make sure that the changes fulfill their goal;
- 	\item Check the structure of the code (for instance the indentation);
-	\item Verify that the merge will not cause any conflicts.
+	\item Verify that the changes fulfill their goal;
+ 	\item Check the quality of the code (for instance the indentation);
+	\item Make sure that the merge will not cause any conflicts.
 \end{itemize}
 
-If something is wrong, the reviewer replaces the previous tag by a new one, \guillemotleft{} state/need improvement \guillemotright{} with a comment in the pull request to describe what needs to be enhanced. This allows the reviewee to efficiently iterate on it. Otherwise, if everything is fine, the reviewer adds a \guillemotleft{} state/approved \guillemotright{} tag and usually merges the branch immediately.
+If something is wrong, the reviewer replaces the previous tag by a new one, \guillemotleft{} state/need improvement \guillemotright{} with a comment in the pull request to describe what needs to be enhanced. This allows the reviewee to efficiently iterate on it. Otherwise, if everything is fine, the reviewer adds a \guillemotleft{} state/approved \guillemotright{} tag and merges the branch in \textit{alpha}.
 
-This reviewing process is rather efficient but it is very time-consuming, and it is not completely reliable as humans make mistakes. This is why Konnektid is now trying to automize these steps by implementing continuous integration, as described in {\sc subsection}~\ref{ssec:ci}.
+This process is rather efficient but very time-consuming, and not completely reliable. For this reason, Konnektid is now introducing continuous integration (\guillemotleft{} CI \guillemotright{}) with Jenkins, an open source automation server~\footnote{For more information go to \url{https://jenkins.io/}}. 
 
-\subsection{Continuous integration}
-\label{ssec:ci}
+CI is a practice based on frequently integrating local code into the shared repository, where it is verified by an automatic build. It is meant to reduce integration issues, and if there are any it helps detecting them earlier. At the moment, CI in Konnektid is very basic and only performs a few tests on \textit{alpha}, but the goal is to improve it step by step in order to achieve continuous integration, continuous delivery (\guillemotleft{} CD \guillemotright{}) and fully automated testing. CD aims at safely releasing all changes in \textit{production} as often as possible, so that it is faster to get feedback from the users and therefore easier to update.
+
+The Konnektid team uses another web technology, the analytics, whose purposes and implementation are detailed in {\sc section}~\ref{sec:analytics}.
