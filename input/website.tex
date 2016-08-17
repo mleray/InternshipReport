@@ -82,7 +82,7 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 
 Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. 
 
-This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action 
+This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action
 creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
 \begin{figure}[H]
@@ -133,6 +133,6 @@ GraphQL is used by Konnektid to communicate between the client and the server. T
     \label{fig:query}
 \end{figure}
 
-There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it. 
+There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it.
 
 In the current section the main technologies have been introduced, now {\sc section}~\ref{sec:github} describes the development process and the use of Github inside the Konnekid team.
