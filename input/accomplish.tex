@@ -1,18 +1,36 @@
 \section{Internship accomplishments}
 \label{sec:accomplish}
 
+This section describes the main tasks achieved during the traineeship, along with the reason why they were needed, the way they have been implemented and the knowledge that they brought.
+
 \subsection{Building of UI components}
 \label{ssec:ui_components}
 
-Explain the reasons behind the building of this library of static UI components
+As mentioned in {\sc subsection}~\ref{ssec:frameworks}, ReactJS is based on encapsulated components, most of them appearing several times on the website. They can be very basic (e.g. buttons) or more elaborate (e.g. modals). For this reason, it is a good idea to create a library of generic components, that can be reused as many times as required. This saves a lot of development time, and also assures a certain homogeneity between the different pages of the application.
 
-\textbf{Describe one only?}
+Several developers, including myself, built this library in a folder named \guillemotleft{} ui \guillemotright{}. One of the components that I have created is the \guillemotleft{} DatePicker \guillemotright{}. Since this is a rather complex component, a good reflex is to first take a look at existing ReactJS plugins. They are usually hosted on Github, with a demonstration link of how they behave and a quick download option via npm.
 
-\begin{itemize}
-    \item Alert
-    \item Location with GoogleMaps plugin
-    \item Date/time pickers
-\end{itemize}
+I found a few possible date pickers, so a selection had to be made, based on several criteria. One of them is the latest update of the repository: if it is quite recent, it means that the owner can quickly help in case there is any problem with the plugin. Also, if the repository has a lot of stars, it means that lots of people using it are satisfied. Another good sign is a low number of open issues in the repository. In the end, the choice was a plugin called \guillemotleft{} react-datepicker \guillemotright{}~\footnote{https://github.com/Hacker0x01/react-datepicker}.
+
+Then, to start the implementation, a \guillemotleft{} DatePicker \guillemotright{} folder was added to the library of components. In this new folder, I created a file named \textit{DatePicker.js} which contains the code of the component. At the top of this file are a few \guillemotleft{} import \guillemotright{} statements, as seen on {\sc figure}~\ref{fig:imports}: ReactJS, the previously downloaded plugin, and also \textit{DatePicker.scss}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{figure/imports.png}
+    \caption{The needed importations for the DatePicker UI component.}
+    \label{fig:imports}
+\end{figure}
+
+This last imported file contains the local CSS styles for the date picker, that will not be used anywhere else in the application. This system makes sure that if changes are made in the CSS for one component, they will not affect other UI elements. However, Konnektid uses some global CSS values (fonts, colors, etc) that are defined in SCSS files at the root of the \guillemotleft{} ui \guillemotright{} folder. Those are meant to be reused in every component, to make the website more harmonious. So I used them to customize react-datepicker, and the final result is presented on {\sc figure}~\ref{fig:datePicker}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/datePicker.png}
+    \caption{The final DatePicker presentational component.}
+    \label{fig:datePicker}
+\end{figure}
+
+This assignment was an efficient way to learn JavaScript and some good ReactJS practices. Moreover, it was a great introduction to the ReactJS community and all the support that it brings, especially with the numerous plugins that are shared.
 
 \subsection{Implementation of new pages}
 \label{ssec:new_pages}
@@ -21,7 +39,6 @@ Explain the reasons behind the building of this library of static UI components
 
 \begin{itemize}
     \item Course page => interesting because editing features
-    \item Teachers landing page => interesting because did everything from wireframe/design to implementation
 \end{itemize}
 
 \subsection{Creation of flows}
@@ -46,3 +63,5 @@ Matchmaking flow
     \item Updated analytics in old pages (for instances for inviting friends)
     \item Added analytics to new pages (explain new analytics and maybe necessary refactoring for enroll modal)
 \end{itemize}
+
+In addition to the technical learnings, this internship has been a great occasion to dive into the startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.

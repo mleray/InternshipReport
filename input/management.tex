@@ -1,16 +1,20 @@
 \section{Project management}
 \label{sec:management}
 
-\subsection{Meetings and goal setting}
-\label{ssec:meetings}
+Project management here refers to the overall organization of the Konnektid team.
 
-\begin{itemize}
-    \item Weekly developers meeting
-    \item Monthly OKRs meetings with everyone to discuss previous results and set up next goals
-    \item Monthly meeting with my tutor to discuss goals/issues/thoughts and to define/evaluate PKIs
-\end{itemize}
+\subsection{Goal setting}
+\label{ssec:goalSetting}
+
+Konnektid's objective for the year is to validate their business model. In order to achieve this, it is divided in monthly sub-tasks, called Objectives and Key Results (\guillemotleft{} OKRs \guillemotright{}). Their progression must be easy to quantify (usually by a percentage) and they should be reasonable (feasible in one month) but also ambitious: a good OKRs score is around 70\%. An example of OKRs for the developers could be to implement a new home page for the website: it is considered 100\% done only when released in \textit{production}.
+
+Once per month, two OKRs meetings are organized with the whole team. The first one is an evaluation of the previous month's OKRs, so that everyone knows what the others have accomplished. If the OKRs score is low, this reunion is also a good opportunity to discuss it: what went wrong, why, and how to avoid it in the future. The second meeting is dedicated to the definition of new OKRs for the next month.
 
 \subsection{Tools}
 \label{ssec:tools}
 
-Asana, Slack, Github: will be detailed in the next section (transition)
+It has been explained in {\sc section}~\ref{sec:github} that Konnektid manages its code on Github, and it is also an efficient communication tool for developers. But in order to interact with the rest of the team, two other tools are used:
+
+\textbf{Asana} facilitates defining tasks: they are easy to comment, divide in subtasks, share, assign to someone, mark completed\ldots And it is possible to add files to them, which is especially useful for screenshots when it comes to design or frontend development. Then, tasks can be organized into projets, whose progress is visually clear and status update is simple~\cite{asana}. Finally, Asana allows creating dashboards, that are groups of projects and/or tasks that belong together. Konnetid for example has a \guillemotleft{} Dev\_board \guillemotright{}, that gathers all the development tasks currently being worked on. Another interesting feature is that Asana can be linked to different services, such as Github for notifying updates on a task.
+
+\textbf{Slack} is a chat system including file transfers, desktop notifications, and more. It also allows to create channels (public or private) that only alert the people belonging to them whenever a message is posted there. Just like Asana, it is possible to connect Slack to other tools~\cite{slack}. For instance Jenkins, previously mentioned in {\sc subsection}~\ref{ssec:reviewing}, can be integrated and then post notifications directly on Slack.

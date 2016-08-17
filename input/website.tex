@@ -9,7 +9,7 @@ This section describes the main technical characteristics of the website, and th
 \url{www.konnektid.com} is built as a single-page application (\guillemotleft{} SPA \guillemotright{}).
 A SPA distinguishes from other web applications by loading one unique web page, and the totality of its necessary code, right from the start.
 After that initial load, all of the logic (presentation, business, routing\ldots) is handled by the client side, in Konnektid's case through JavaScript.
-When the user interacts with the page, only affected parts of the user interface (\guillemotleft{} UI \guillemotright{}) are updated, without any server intervention.
+And when the user interacts with the page, only the affected parts of the user interface (\guillemotleft{} UI \guillemotright{}) are updated.
 
 This is achieved by using a specific architecture introduced on {\sc figure}~\ref{fig:spaArchi}, in which the data (\guillemotleft{} Model
 \guillemotright{} layer) is separated from its presentation (\guillemotleft{} View \guillemotright{} layer)\cite{spa}.
@@ -24,8 +24,8 @@ This is achieved by using a specific architecture introduced on {\sc figure}~\re
 A few more details about the different parts of the architecture:
 \begin{itemize}[noitemsep]
     \item DOM~\footnote{Document Object Model: provides a representation of the document structured as a tree, and methods to access it.} is write-only:
-    no state/data is read from it, it only outputs HTML, operations and events;
-    \item Models handles all the state/data of the application;
+    no data is read from it, it just outputs HTML, operations and events;
+    \item Models handles all the data and state of the application;
     \item Views update the UI, depending on DOM events and models, as pictured on {\sc figure}~\ref{fig:view}.
 \end{itemize}
 
@@ -53,21 +53,19 @@ The website is principally developed in JavaScript, HTML and SCSS. It features a
 \subsubsection{ReactJS}
 \label{sssec:react}
 
-ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. 
-When a component is first initialized, it calls a \textit{render()} method that generates a \guillemotleft{} virtual DOM \guillemotright{} (a lightweight representation of the view). From this, a markup is created and inserted into the actual DOM. 
-Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
-This makes web applications much faster and easier to build~\cite{whyReact}.
+ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. ReactJs implements a \guillemotleft{} virtual DOM \guillemotright{}, i.e. a lightweight representation of the view, from which the markup is created and inserted into the actual DOM. Then for each component, at initialization a \textit{render()} method is called, that generates the corresponding slice of DOM. Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
+This makes web applications much faster, and easier to build~\cite{whyReact}.
 
 ReactJS components act just like functions: they take data as input and output the corresponding UI in return. They can manipulate two different kinds of data:
-\paragraph{The state} It is a set of internal data, that can only be updated by the component itself using the \textit{setState()}  method. All React components do not necessary have state: if they do, they are called \guillemotleft{} stateful \guillemotright{}, in opposition to \guillemotleft{} stateless \guillemotright{} for the others. Stateful components access their state via \textit{this.state}.
 
-\paragraph{The props} These properties are passed down to the component by its parents, and can be accessed by calling \textit{this.props}. They cannot be modified by the component, but to avoid issues if not provided it is possible to define default values.
+\textbf{The state} It is a set of internal data, that can only be updated by the component itself using the \textit{setState()}  method. All React components do not necessary have state: if they do, they are called \guillemotleft{} stateful \guillemotright{} (or \guillemotleft{} smart \guillemotright{}), in opposition to \guillemotleft{} stateless \guillemotright{} (or \guillemotleft{} dumb \guillemotright{}) for the others. Stateful components access their state via \textit{this.state}.
+
+\textbf{The props} These properties are passed down to the component by its parents, and can be accessed by calling \textit{this.props}. They cannot be modified by the component, but to avoid issues if not provided it is possible to define default values.
 
 So ReactJS can be summarized as: \framebox{\textbf{component(props, state) => UI}}
 
 A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice, 
-by implementing most of its components stateless. When a state is really needed, a \guillemotleft{} container \guillemotright{} 
-is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
+by implementing most of its components presentational. When a state is really needed, a \guillemotleft{} container \guillemotright{} is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
 
 Most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
 It makes the code easier to debug, and faster thanks to the optimization performed during compilation~\cite{whyJsx}. {\sc figure}~\ref{fig:jsx} shows that code written in JSX is much more readable than raw JavaScript.
@@ -82,7 +80,7 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 \subsubsection{Redux}
 \label{sssec:redux}
 
-Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state into one object tree called \guillemotleft{} store \guillemotright{}. 
+Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. 
 
 This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action 
 creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
@@ -110,7 +108,7 @@ The whole Redux behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
 
 Konnektid's server-side code is mostly based on Node.js, an asynchronous event-driven JavaScript runtime. It is particularly efficient because it uses Google Chrome's open-source V8 engine, that is able to quickly analyze and execute JavaScript code~\cite{v8}.
 
-Node.js's non-blocking code architecture is one of the features that make it particularly fast: the program does not need to wait to finish an action before launching a new one~\cite{node}. Instead, when starting a request, a callback function is associated to it and will be fired as soon as the request is achieved. These notifications allow the system to keep working on other tasks in the meantime, as illustrated on {\sc figure}~\ref{fig:callback}.
+Node.js's non-blocking code architecture is one of the reasons why it is particularly fast: the program does not need to wait to finish an action before launching a new one~\cite{node}. This is achieved by associating each input/output operation (such as a database query) to a callback function that will be fired as soon as the operation is over. In between, the system can work on other tasks, as illustrated on {\sc figure}~\ref{fig:callback}.
 
 \begin{figure}[H]
     \centering
