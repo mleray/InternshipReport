@@ -53,8 +53,8 @@ The website is principally developed in JavaScript, HTML and SCSS. It features a
 \subsubsection{ReactJS}
 \label{sssec:react}
 
-ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. 
-When a component is first initialized, it calls a \textit{render()} method that generates a \guillemotleft{} virtual DOM \guillemotright{} (a lightweight representation of the view). From this, a markup is created and inserted into the actual DOM. 
+ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date.
+When a component is first initialized, it calls a \textit{render()} method that generates a \guillemotleft{} virtual DOM \guillemotright{} (a lightweight representation of the view). From this, a markup is created and inserted into the actual DOM.
 Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
 This makes web applications much faster and easier to build~\cite{whyReact}.
 
@@ -65,9 +65,9 @@ ReactJS components act just like functions: they take data as input and output t
 
 So ReactJS can be summarized as: \framebox{\textbf{component(props, state) => UI}}
 
-A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice, 
-by implementing most of its components stateless. When a state is really needed, a \guillemotleft{} container \guillemotright{} 
-is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
+A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice,
+by implementing most of its components stateless. When a state is really needed, a \guillemotleft{} container \guillemotright{}
+is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle).
 
 Most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
 It makes the code easier to debug, and faster thanks to the optimization performed during compilation~\cite{whyJsx}. {\sc figure}~\ref{fig:jsx} shows that code written in JSX is much more readable than raw JavaScript.
@@ -82,9 +82,9 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 \subsubsection{Redux}
 \label{sssec:redux}
 
-Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state into one object tree called \guillemotleft{} store \guillemotright{}. 
+Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state into one object tree called \guillemotleft{} store \guillemotright{}.
 
-This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action 
+This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action
 creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
 \begin{figure}[H]
@@ -135,6 +135,6 @@ GraphQL is used by Konnektid to communicate between the client and the server. T
     \label{fig:query}
 \end{figure}
 
-There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it. 
+There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it.
 
 In the current section the main technologies have been introduced, now {\sc section}~\ref{sec:github} describes the development process and the use of Github inside the Konnekid team.
