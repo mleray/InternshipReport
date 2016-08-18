@@ -42,17 +42,10 @@ two will be described here: first the course page, then the teachers landing pag
 \subsubsection{The course page}
 \label{sssec:coursePage}
 
-The course page refers to the page used for teachers to create, edit and publish a course. It had to be built from scratch, for both desktop and mobile, based on designs
-made by Konnektid's former designer. It is now released and used by professional teachers, and an example is visible on {\sc figure}~\ref{fig:coursePage}.
+The course page refers to the page used by teachers to create, edit and publish a course. It had to be built from scratch, for both desktop and mobile, based on designs
+made by Konnektid's former designer. It is now released and used by professional teachers, and a desktop example is visible in {\sc attachment}~\ref{ssec:courseDesktop}.
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[scale=0.2]{figure/coursePage.png}
-    \caption{An example of course published on the website (desktop version).}
-    \label{fig:coursePage}
-\end{figure}
-
-We can see that the page features two main elements:
+The page features two main elements:
 
 \textbf{The top section} which contains all the main information about the course (picture, title, price\ldots) and the teacher (avatar, name, short introduction).
 The teacher name is a direct link to his or her profile. On the right, this section also provides a button \guillemotleft{} Enroll now \guillemotright{} for the students
@@ -60,42 +53,47 @@ to book the course.
 
 \textbf{The bottom section} which is divided in two parts. The right part takes most space on the page and gives an in-depth description of the course
 (methodology, requirements\ldots). The left part, which is thinner, shows practical information about the course (format, length\ldots) and another
-\guillemotleft{} Enroll now \guillemotright{} button with a reminder of the price. Below this are all the sharing functionalities: Facebook, Twitter,
-email, and even WhatsApp on mobile.
+\guillemotleft{} Enroll now \guillemotright{} button with a reminder of the price. Below this are the sharing functionalities: Facebook, Twitter,
+email, and WhatsApp on mobile.
 
-This was the very first whole JavaScript page I implemented. It made me realize the value of the components library mentioned in {\sc subsection}~\ref{ssec:ui_components}.
-Indeed, it is really convenient to have all these built-in UI components to reuse, and it makes building interfaces much faster. The biggest challenge here was to divide
-the page in smaller sub-components, each of them in their own folder with local CSS styles. For instance, the biggest bottom part is a component called
-\guillemotleft{} CourseDescriptionCard \guillemotright{}. Since it contains several sections that are very similar in presentation and only differ by their title and content,
-it made sense to create a reusable \guillemotleft{} CourseDescriptionItem \guillemotright{} to render them with title and content passed down as props. This is a recommanded
-practice, as it respects the single responsibility principle previously mentioned in {\sc subsection}~\ref{ssec:frameworks} and avoids duplicated code.
-These are two of the many techniques for writing maintainable code~\cite{maintainable}, i.e. code that is easy to read, to modify and to extend.
+The first step in the implementation was to create the corresponding route, to indicate that \url{www.konnektid.com/course/:id} (where \textit{id} is the course identifier) leads to the \textit{Course} route handler. It is a JavaScript file rendering the \textit{Course} component inside of the website layout.
 
-After the static course page has been built and reviewed, my tutor asked me to add inline editing for the teachers to edit their courses.
-This means that all elements can be edited in-place, in the context where they will be published, which facilitates picturing the final result.
-In order to implement this, I used a rich text editor framework for ReactJS called \textit{DraftJS}.
+Then, to build the \textit{Course} component, the challenge was to decide how to divide
+it in sub-components, each of them implemented in their own folder with local CSS styles. For instance, the biggest bottom part is a component called
+\guillemotleft{} CourseDescriptionCard \guillemotright{}. It contains several sections that are similar in presentation and only differ by their title and content, so
+it made sense to create a reusable \guillemotleft{} CourseDescriptionItem \guillemotright{} to render each of them with title and content passed down as props. It respects the single responsibility principle previously mentioned in {\sc subsection}~\ref{ssec:frameworks} and avoids duplicated code.
+These are two of the many good practices for writing maintainable code~\cite{maintainable}, i.e. code that is easy to read, to modify and to extend.
 
-DraftJS enables the creation of rich content, such as bold or italic text and lists of items. These features are available for the teachers when editing the
-CourseDescriptionCard. But they can also be blocked, for instance when editing the title of the course which needs to be a simple line.
+After the static course page had been built and reviewed, my tutor asked me to add inline editing features to it.
+This means that elements can be edited in-place, in the context where they will be published, which facilitates picturing the final result.
+In order to implement this, I used an editor framework for ReactJS called \textit{DraftJS}, which enables the creation of rich content such as bold/italic text or lists of items~\cite{draftJS}. The result for the top section of the page is displayed on {\sc figure}~\ref{fig:courseEditIntro}. When hovering on an editable part, such as the title, a gray frame appears around it to draw attention, and the teacher can just click on it to start writing.
 
 \begin{figure}[H]
     \centering
     \includegraphics[scale=0.2]{figure/courseEditIntro.png}
-    \caption{The top section of the course page when being edited.}
+    \caption{The top section of the course page in edition mode.}
     \label{fig:courseEditIntro}
 \end{figure}
+
+DraftJS is based on an \guillemotleft{} Editor \guillemotright{} component, whose state is stored in an \guillemotleft{} EditorState \guillemotright{} object holding all the information about the content: the text and its decoration (bold, italic\ldots), the selection state\ldots A method \textit{onChange}, passed down as prop, is called to update the state every time the user changes the content of the editor. Moreover, it is possible to define customized key bindings for the editor, by using the \textit{keyBindingFn} and \textit{handleKeyCommand} props. The first function returns a command string depending on the pressed key, then the second one takes that string as input and outputs the corresponding changes on the editor state.
+
+This page was the first static page I fully created, and it made me realize how useful the components library mentioned in {\sc subsection}~\ref{ssec:ui_components} is. It was also a great occasion to improve my skills in JavaScript and SCSS, and to get even more familiar with ReactJS and its derivatives.
 
 \subsubsection{The teachers landing page}
 \label{sssec:teachersPage}
 
-\begin{itemize}
-    \item Teachers landing page => interesting because did everything from wireframe/design to implementation
-\end{itemize}
+This is the page describing Konnektid's offer for professional teachers, in order to convince people to become one. It was already existing, but it was decided to improve it because the conversion rate (i.e. the number of users signing up as teachers compared to the number of visitors of the page) was too low. 
+
+To get started, we had a brainstorm session to determine what contents were needed, and how they should be structured. We came up with a wireframe\footnote{Basic skeleton of the page, representing the main UI elements and how they work together.}, and since there was no designer back then, this was the only support I had for development. So I quickly built and presented a first draft, to make sure I was heading the right way and to get a first round of feedback.
+
+Based on this, I could iterate the process and gradually improve the interface until it was validated. Then, to verify that we were sending the right message, the copywriting was reviewed together with the community manager. She also helped me out by collecting quotes from current professional teachers, who were then integrated in the page as social proof of the concept. This first version was released in \textit{alpha}.
+
+A while later, a designer joined the team and suggested a few modifications concerning the User Experience (UX) and the UI of the page, so we worked together on improving it. 
+
+The new page is now released, at \url{www.konnektid.com/teachers}. It was great to follow the creation process from A to Z, and to be fully responsible for it. Another highlight of this project was thinking about UX/UI design issues, because no pre-designed mockups were available but also thanks to the close collaboration with the designer at the end.
 
 \subsection{Creation of flows}
 \label{ssec:flows}
-
-\textbf{Not sure if necessary, as wireframes are already mentioned in the previous subsection?}
 
 Matchmaking flow
 
@@ -112,7 +110,7 @@ Matchmaking flow
 
 \begin{itemize}
     \item Updated analytics in old pages (for instances for inviting friends)
-    \item Added analytics to new pages (explain new analytics and maybe necessary refactoring for enroll modal)
+    \item Added analytics to new pages (explain necessary refactoring for enroll modal?)
 \end{itemize}
 
 In addition to the technical learnings, this internship has been a great occasion to dive into the startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.
