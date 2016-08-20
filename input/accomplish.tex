@@ -86,11 +86,24 @@ This is the page describing Konnektid's offer for professional teachers, in orde
 
 To get started, we had a brainstorm session to determine what contents were needed, and how they should be structured. We came up with a wireframe\footnote{Basic skeleton of the page, representing the main UI elements and how they work together.}, and since there was no designer back then, this was the only support I had for development. So I quickly built and presented a first draft, to make sure I was heading the right way and to get a first round of feedback.
 
-Based on this, I could iterate the process and gradually improve the interface until it was validated. Then, to verify that we were sending the right message, the copywriting was reviewed together with the community manager. She also helped me out by collecting quotes from current professional teachers, who were then integrated in the page as social proof of the concept. This first version was released in \textit{alpha}.
+Based on this, I could iterate the process and gradually improve the interface until it was validated, for both desktop and phone. Then, to verify that we were sending the right message, the copywriting was reviewed together with the community manager. She also helped me out by collecting quotes from current professional teachers, who were then integrated in the page as social proof of the concept. This first version was released in \textit{alpha}. A while later, a designer joined the team and suggested a few modifications concerning the User Experience (UX) and the UI of the page, so we worked together on improving it. 
 
-A while later, a designer joined the team and suggested a few modifications concerning the User Experience (UX) and the UI of the page, so we worked together on improving it. 
+In the meantime, the registration process for professional teachers was also being refactored, but it was not yet ready. So I had to implement a temporary sign-flow, based on the former one visible on {\sc figure}~\ref{fig:signUpFlow}.
 
-The new page is now released, at \url{www.konnektid.com/teachers}. It was great to follow the creation process from A to Z, and to be fully responsible for it. Another highlight of this project was thinking about UX/UI design issues, because no pre-designed mockups were available but also thanks to the close collaboration with the designer at the end.
+ \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/signUpFlow.png}
+    \caption{The registration form for professional teachers.}
+    \label{fig:signUpFlow}
+\end{figure}
+
+It is a modal with four fields to fill in: the name and email of the applicant, the skill(s) to be taught, and the city or cities where he/she could teach. When clicking on \guillemotleft{} Send \guillemotright{}, an email is sent to the Konnektid team with all the provided information. If everything goes well, a new screen appears to indicate the success, and the request can be treated by Konnektid (i.e. get in touch with the person, verify the certifications\ldots). If there is a problem (for instance while sending the email), an error screen appears to inform the applicant that the request could not be sent.
+
+I had to re-create this modal with the UI components of the new library, as a component called \guillemotleft{} BecomeTeacherModal \guillemotright{}. It has a corresponding container to manage the state of the modal (i.e. when to show it or not) and of the form (i.e. which screen to display) thanks to a Redux reducer. It also contains a form, the \guillemotleft{} BecomeTeacherForm \guillemotright{} component, receiving the screen as prop, which can have three values: \guillemotleft{} form \guillemotright{}, \guillemotleft{} success \guillemotright{} or \guillemotleft{} error \guillemotright{} depending on the state of the request. This form was built with \textit{redux-form}, a plugin specially designed for managing form state in React using Redux.
+
+I used \textit{redux-form} in a container on top of the BecomeTeacherForm component, to perform all the necessary verifications needed to validate the form. For example, the email address is mandatory, and also needs to respect a certain format (e.g. test@test.com is good, but test.test.com is not because it does not contain @). The code of the BecomeTeacherForm container, testing the email value, can be seen on {\sc figure}~\ref{fig:reduxForm}. 
+
+The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{ssec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it. Another highlight of this project was dealing with UX/UI design issues, because no pre-designed mockups were available but also thanks to the close collaboration with the designer at the end.
 
 \subsection{Creation of flows}
 \label{ssec:flows}
@@ -109,8 +122,8 @@ Matchmaking flow
 \label{ssec:analytics}
 
 \begin{itemize}
-    \item Updated analytics in old pages (for instances for inviting friends)
+    \item Updated analytics in old pages (for instance for inviting friends)
     \item Added analytics to new pages (explain necessary refactoring for enroll modal?)
 \end{itemize}
 
-In addition to the technical learnings, this internship has been a great occasion to dive into the startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.
+In addition to the technical learnings, this internship has been a great occasion to dive into startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.
