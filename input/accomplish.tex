@@ -32,41 +32,44 @@ This last imported file contains the local CSS styles for the date picker, that 
 
 This assignment was an efficient way to learn JavaScript and some good ReactJS practices. Moreover, it was a great introduction to the ReactJS community and all the support that it brings, especially with the numerous plugins that are shared.
 
+It is important here to note that the pages that already existed on the website do not use this new library of UI components. Instead of rebuilding them all, which would have been terribly time-consuming, we were able to keep them in separate folders: \textit{public} for public pages such as the homepage, \textit{app} for private pages~\footnote{Pages accessible only when the user is logged in.} such as the activity feed. They are now referred to as \guillemotleft{} old \guillemotright{} pages whereas the most recent pages, built with the UI library, are called \guillemotleft{} new \guillemotright{}.
+
 \subsection{Implementation of new pages}
 \label{ssec:new_pages}
 
 It has been explained in {\sc subsection}~\ref{ssec:concept} that Konnektid's main goal for the year is to test and validate their business model, which relies on
-professional teachers. This requires the implementation of several new pages and functionalities, and some have been built during the internship. Among them, only
-two will be described here: first the course page, then the teachers landing page.
+professional teachers. This requires the implementation of several new pages and functionalities, and lots have been built during the internship. Among them, one will be described here: the course page.
 
-\subsubsection{The course page}
-\label{sssec:coursePage}
-
-The course page refers to the page used by teachers to create, edit and publish a course. It had to be built from scratch, for both desktop and mobile, based on designs
+It refers to the page used by teachers to create, edit and publish a course. It had to be built from scratch, for both desktop and mobile, based on designs
 made by Konnektid's former designer. It is now released and used by professional teachers, and a desktop example is visible in {\sc attachment}~\ref{ssec:courseDesktop}.
 
 The page features two main elements:
 
-\textbf{The top section} which contains all the main information about the course (picture, title, price\ldots) and the teacher (avatar, name, short introduction).
-The teacher name is a direct link to his or her profile. On the right, this section also provides a button \guillemotleft{} Enroll now \guillemotright{} for the students
-to book the course.
+\textbf{The top section} which contains the main information about the course (picture, title, price\ldots) and the teacher (avatar, name\ldots).
+The teacher name is a direct link to his or her profile. This section also provides a button \guillemotleft{} Enroll now \guillemotright{} for the students to book the course.
 
 \textbf{The bottom section} which is divided in two parts. The right part takes most space on the page and gives an in-depth description of the course
-(methodology, requirements\ldots). The left part, which is thinner, shows practical information about the course (format, length\ldots) and another
-\guillemotleft{} Enroll now \guillemotright{} button with a reminder of the price. Below this are the sharing functionalities: Facebook, Twitter,
+(methodology, requirements\ldots). The left part, thinner, shows practical information about the course (format, length\ldots) and another \guillemotleft{} Enroll now \guillemotright{} button with a reminder of the price. Below this are the sharing functionalities: Facebook, Twitter,
 email, and WhatsApp on mobile.
 
-The first step in the implementation was to create the corresponding route, to indicate that \url{www.konnektid.com/course/:id} (where \textit{id} is the course identifier) leads to the \textit{Course} route handler. It is a JavaScript file rendering the \textit{Course} component inside of the website layout.
+The initial step in the implementation was to create the corresponding route, to indicate that \url{www.konnektid.com/course/:id} (where \textit{id} is the course identifier) leads to the \textit{Course} route handler. It is a JavaScript file rendering the \textit{Course} component inside of the website layout. Later on, when the UI is finished and the logic is added using Redux, the route handler renders the \textit{Course} container instead of the component.
 
-Then, to build the \textit{Course} component, the challenge was to decide how to divide
-it in sub-components, each of them implemented in their own folder with local CSS styles. For instance, the biggest bottom part is a component called
-\guillemotleft{} CourseDescriptionCard \guillemotright{}. It contains several sections that are similar in presentation and only differ by their title and content, so
-it made sense to create a reusable \guillemotleft{} CourseDescriptionItem \guillemotright{} to render each of them with title and content passed down as props. It respects the single responsibility principle previously mentioned in {\sc subsection}~\ref{ssec:frameworks} and avoids duplicated code.
+To build the \textit{Course} component, the first challenge was to decide how to divide
+it in sub-components, each of them implemented in their own folder with local CSS styles. For instance, the biggest bottom part shown on {\sc figure}~\ref{fig:courseDescription} is a component called \guillemotleft{} CourseDescriptionCard \guillemotright{}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.6]{figure/courseDescription.png}
+    \caption{An example of course description, in the bottom part of the course page.}
+    \label{fig:courseDescription}
+\end{figure} 
+
+We can see that it contains several sections, that are similar in presentation and only differ by their title and content. So
+it made sense to create a reusable \guillemotleft{} CourseDescriptionItem \guillemotright{} sub-component, to render each of them with title and content passed down as props. This reasoning respects the single responsibility principle previously mentioned in {\sc subsection}~\ref{ssec:frameworks} and avoids duplicated code.
 These are two of the many good practices for writing maintainable code~\cite{maintainable}, i.e. code that is easy to read, to modify and to extend.
 
-After the static course page had been built and reviewed, my tutor asked me to add inline editing features to it.
-This means that elements can be edited in-place, in the context where they will be published, which facilitates picturing the final result.
-In order to implement this, I used an editor framework for ReactJS called \textit{DraftJS}, which enables the creation of rich content such as bold/italic text or lists of items~\cite{draftJS}. The result for the top section of the page is displayed on {\sc figure}~\ref{fig:courseEditIntro}. When hovering on an editable part, such as the title, a gray frame appears around it to draw attention, and the teacher can just click on it to start writing.
+After the static page had been built, I was asked to add inline editing features to it.
+This means that elements can be edited in-place, in the context where they will be published. I used an editor framework for ReactJS called \textit{DraftJS}, which enables the creation of rich content such as bold/italic text or lists of items~\cite{draftJS}. An example of the top section of the page being edited is displayed on {\sc figure}~\ref{fig:courseEditIntro}. When hovering on an editable part, such as the title, a gray frame appears around it to draw attention, and the teacher can just click on it to start writing.
 
 \begin{figure}[H]
     \centering
@@ -79,16 +82,18 @@ DraftJS is based on an \guillemotleft{} Editor \guillemotright{} component, whos
 
 This page was the first static page I fully created, and it made me realize how useful the components library mentioned in {\sc subsection}~\ref{ssec:ui_components} is. It was also a great occasion to improve my skills in JavaScript and SCSS, and to get even more familiar with ReactJS and its derivatives.
 
-\subsubsection{The teachers landing page}
-\label{sssec:teachersPage}
+\subsection{Refactoring of old pages}
+\label{ssec:refactor}
 
-This is the page describing Konnektid's offer for professional teachers, in order to convince people to become one. It was already existing, but it was decided to improve it because the conversion rate (i.e. the number of users signing up as teachers compared to the number of visitors of the page) was too low. 
+To include the new features, some old pages of the application had to be modified, usually with small changes: for example, I updated the professional teachers presented on the homepage, in the \guillemotleft{} Book a professional teacher \guillemotright{} section. In this case, revising the former code was enough. But sometimes, a whole refactoring was needed, and in that case the best option is to entirely rebuild the page using the UI library. 
+
+This is what happened for the teachers landing page, describing Konnektid's offer for professional teachers in order to convince people to become one. It was decided to improve it because the conversion rate (i.e. the number of users signing up as teachers compared to the number of visitors of the page) obtained via the analytics was not satisfying. 
 
 To get started, we had a brainstorm session to determine what contents were needed, and how they should be structured. We came up with a wireframe\footnote{Basic skeleton of the page, representing the main UI elements and how they work together.}, and since there was no designer back then, this was the only support I had for development. So I quickly built and presented a first draft, to make sure I was heading the right way and to get a first round of feedback.
 
 Based on this, I could iterate the process and gradually improve the interface until it was validated, for both desktop and phone. Then, to verify that we were sending the right message, the copywriting was reviewed together with the community manager. She also helped me out by collecting quotes from current professional teachers, who were then integrated in the page as social proof of the concept. This first version was released in \textit{alpha}. A while later, a designer joined the team and suggested a few modifications concerning the User Experience (UX) and the UI of the page, so we worked together on improving it. 
 
-In the meantime, the registration process for professional teachers was also being refactored, but it was not yet ready. So I had to implement a temporary sign-flow, based on the former one visible on {\sc figure}~\ref{fig:signUpFlow}.
+In the meantime, the registration process for professional teachers was also being refactored, but it was not yet ready. So I had to implement a temporary sign-up flow, based on the former one visible on {\sc figure}~\ref{fig:signUpFlow}.
 
  \begin{figure}[H]
     \centering
@@ -97,21 +102,40 @@ In the meantime, the registration process for professional teachers was also bei
     \label{fig:signUpFlow}
 \end{figure}
 
-It is a modal with four fields to fill in: the name and email of the applicant, the skill(s) to be taught, and the city or cities where he/she could teach. When clicking on \guillemotleft{} Send \guillemotright{}, an email is sent to the Konnektid team with all the provided information. If everything goes well, a new screen appears to indicate the success, and the request can be treated by Konnektid (i.e. get in touch with the person, verify the certifications\ldots). If there is a problem (for instance while sending the email), an error screen appears to inform the applicant that the request could not be sent.
+It is a modal with four fields to fill in: the name and email of the applicant, the skill(s) to teach, and the city or cities where he/she could teach. When clicking on \guillemotleft{} Send \guillemotright{}, an email is sent to the Konnektid team with all the provided information. If everything goes well, a new screen appears to indicate the success, and the request can be treated by Konnektid (i.e. get in touch with the person, verify the certifications\ldots). If there is a problem (for instance while sending the email), an error screen appears to inform the applicant that the request could not be sent.
 
-I had to re-create this modal with the UI components of the new library, as a component called \guillemotleft{} BecomeTeacherModal \guillemotright{}. It has a corresponding container to manage the state of the modal (i.e. when to show it or not) and of the form (i.e. which screen to display) thanks to a Redux reducer. It also contains a form, the \guillemotleft{} BecomeTeacherForm \guillemotright{} component, receiving the screen as prop, which can have three values: \guillemotleft{} form \guillemotright{}, \guillemotleft{} success \guillemotright{} or \guillemotleft{} error \guillemotright{} depending on the state of the request. This form was built with \textit{redux-form}, a plugin specially designed for managing form state in React using Redux.
+I had to re-create this modal with the UI components of the new library, as a component called \guillemotleft{} BecomeTeacherModal \guillemotright{}. It contains a form, \guillemotleft{} BecomeTeacherForm \guillemotright{}, receiving the screen as prop, which can have three values: \guillemotleft{} form \guillemotright{}, \guillemotleft{} success \guillemotright{} or \guillemotleft{} error \guillemotright{}. It also has a container to manage the state of the modal (i.e. when to show it or not) and of the form (i.e. which screen to display) thanks to a Redux reducer that I implemented along with its tests. The form itself was built with \textit{redux-form}, a plugin specially designed for managing form state in React using Redux.
 
-I used \textit{redux-form} in a container on top of the BecomeTeacherForm component, to perform all the necessary verifications needed to validate the form. For example, the email address is mandatory, and also needs to respect a certain format (e.g. test@test.com is good, but test.test.com is not because it does not contain @). The code of the BecomeTeacherForm container, testing the email value, can be seen on {\sc figure}~\ref{fig:reduxForm}. 
+I used \textit{redux-form} in the container on top of the BecomeTeacherForm component, to perform all the necessary verifications needed to validate the form. For example, the email address is mandatory, and also needs to respect a certain format (e.g. test@test.com). The code of the BecomeTeacherForm container, testing the email value, can be seen on {\sc figure}~\ref{fig:reduxForm} where \textit{isEmail} is a utility checking the email format.
 
-The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{ssec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it. Another highlight of this project was dealing with UX/UI design issues, because no pre-designed mockups were available but also thanks to the close collaboration with the designer at the end.
+ \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{figure/reduxForm.png}
+    \caption{The \guillemotleft{} BecomeTeacherForm \guillemotright{} container.}
+    \label{fig:reduxForm}
+\end{figure}
 
-\subsection{Creation of flows}
-\label{ssec:flows}
+Then, the error to display (if any) and the validation of the email can be used in the component via \textit{email.error} and \textit{email.valid}. The error will appear in red under the corresponding input, to inform the user that something is wrong. The validation is used to able or not the \guillemotleft{} Send \guillemotright{} action, as on {\sc figure}~\ref{fig:signUpFlow} where the empty email field disables the button.
 
-Matchmaking flow
+The remaining task for this project was to create a GraphQL mutation to send the request email to Konnektid. I did not have time to complete the email, but I implemented \textit{notifyRegisteredTeacherMutation.js} which takes as input a \guillemotleft{} TeacherRegistration \guillemotright{} object containing all the fields of the form. When \guillemotleft{} Send \guillemotright{} is clicked, the mutation is called in the \textit{becomeTeacherModal} reducer, via the \textit{completeRegistrationProcess} method visible on {\sc figure}~\ref{fig:completeRegistration}.
+
+ \begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.8]{figure/completeRegistration.png}
+    \caption{The function handling the registration request.}
+    \label{fig:completeRegistration}
+\end{figure}
+
+This asynchronous function fires the \textit{COMPLETE\_REGISTRATION\_PROCESS} action, and if the mutation is successful sends \textit{COMPLETE\_REGISTRATION\_PROCESS\_SUCCESS} which updates the screen to \guillemotleft{} success \guillemotright{}. Otherwise, \textit{COMPLETE\_REGISTRATION\_PROCESS\_FAIL} is returned and the screen becomes \guillemotleft{} error \guillemotright{}.
+
+The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{ssec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it, even if it was challenging to build everything from scratch with technologies I had never used before.
 
 \subsection{New navigation}
 \label{ssec:new_nav}
+
+After discussions with the designer, it appeared that the navigation in the private pages of the application was too complicated and unclear. So, it has been decided to refactor it, and I was assigned to implement the changes (both in mobile and desktop) based on design mockups.
+
+First, since this is a consequent change, I created a feature flag (trick described in {\sc subsection}~\ref{ssec:env}) called \textit{new\_navigation\_enabled}. I set it to true in the \textit{development} and \textit{alpha} configuration files, but to false in \textit{production}. I also had to add it to a file called \textit{legacyConfig}, to be able to access its value in the old pages where the navigation also needed to be updated.
 
 \begin{itemize}
     \item Responsible of the project

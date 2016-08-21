@@ -34,7 +34,7 @@
 
 \begin{document}
     \hypersetup{pageanchor=false}
-    \includepdf{figure/cover.pdf}
+    \includepdf[page=1]{figure/cover.pdf}
     \hypersetup{pageanchor=true}
 
     \newpage
@@ -78,18 +78,18 @@
     \newpage
     \input{input/conclusion.tex}
 
+    \newpage
+    \input{input/attach.tex}
+
     \emptypage
     \newpage
     \bibliographystyle{plain}
     \newpage
     \bibliography{input/biblio}
 
-    \newpage
-    \input{input/attach.tex}
-
     \emptypage
     \ifthenelse{\isodd{\thepage}}
     {\emptypage}
     {}
-    \includepdf{figure/summary.pdf}
+    \includepdf[page=2]{figure/cover.pdf}
 \end{document}

@@ -1,7 +1,7 @@
 \section{The web application}
 \label{sec:website}
 
-This section describes the main technical characteristics of the website, and the technologies it is built with.
+This section describes the main characteristics of the website, and the technologies it is built with.
 
 \subsection{Single-page application}
 \label{ssec:spa}
@@ -16,7 +16,7 @@ This is achieved by using a specific architecture introduced on {\sc figure}~\re
 
 \begin{figure}[H]
     \centering
-    \includegraphics[scale=0.6]{figure/spaArchi.png}
+    \includegraphics[scale=0.5]{figure/spaArchi.png}
     \caption{The usual structure of a single-page application.}
     \label{fig:spaArchi}
 \end{figure}
@@ -80,10 +80,9 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 \subsubsection{Redux}
 \label{sssec:redux}
 
-Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. 
+Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. In other words, it handles the logic and the data so that React components only have to deal with the presentation.
 
-This store also provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property. Actions are produced by specific functions called \guillemotleft{} action
-creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
+The store provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property (usually a constant). Actions are produced by specific functions called \guillemotleft{} action creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
 \begin{figure}[H]
     \centering
@@ -92,9 +91,7 @@ creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
     \label{fig:action}
 \end{figure}
 
-To specify how the application's state is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions~\footnote{Functions that always return the same result given the same argument(s)} that take the previous state and an action, and output a new object containing the next state. The previous state is never modified, so that it can be returned in default case (e.g. for an unknown action). So it works as follows: \framebox{\textbf{reducer(previousState, action) => newState}}.
-
-The whole Redux behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
+To specify how the application's state is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions~\footnote{Functions that always return the same result given the same argument(s)} with no side effects, that take the previous state and an action, and output an object containing the new state. The previous state is never modified, so that it can be returned in default case (e.g. for an unknown action). The Redux behaviour is illustrated on {\sc figure}~\ref{fig:reduxSumup}.
 
 \begin{figure}[H]
     \centering
@@ -102,6 +99,8 @@ The whole Redux behaviour is summarized on {\sc figure}~\ref{fig:reduxSumup}.
     \caption{A simplified diagram of how Redux works.}
     \label{fig:reduxSumup}
 \end{figure}
+
+To summarize, Redux works as follows: \framebox{\textbf{reducer(previousState, action) => newState}}.
 
 \subsubsection{Node.js}
 \label{sssec:node}
