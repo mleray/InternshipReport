@@ -80,7 +80,7 @@ This means that elements can be edited in-place, in the context where they will 
 
 DraftJS is based on an \guillemotleft{} Editor \guillemotright{} component, whose state is stored in an \guillemotleft{} EditorState \guillemotright{} object holding all the information about the content: the text and its decoration (bold, italic\ldots), the selection state\ldots A method \textit{onChange}, passed down as prop, is called to update the state every time the user changes the content of the editor. Moreover, it is possible to define customized key bindings for the editor, by using the \textit{keyBindingFn} and \textit{handleKeyCommand} props. The first function returns a command string depending on the pressed key, then the second one takes that string as input and outputs the corresponding changes on the editor state.
 
-This page was the first static page I fully created, and it made me realize how useful the components library mentioned in {\sc subsection}~\ref{ssec:ui_components} is. It was also a great occasion to improve my skills in JavaScript and SCSS, and to get even more familiar with ReactJS and its derivatives.
+This page was the first static page I fully created, and it made me realize how useful the components library mentioned in {\sc subsection}~\ref{ssec:ui_components} is. It was also a great occasion to improve my skills in JavaScript and SCSS, and to get even more familiar with ReactJS and its derivatives. I had a lot of similar tasks to treat during the traineeship, so at the end I was able to quickly deliver well-structured frontend pages, and even UI for entire flows (such as booking a course with online payment).
 
 \subsection{Refactoring of existing pages}
 \label{ssec:refactor}
@@ -243,5 +243,16 @@ I could then define \textit{inviteClicked()} ({\sc figure}~\ref{fig:inviteClicke
     \caption{The \textit{inviteClicked()} method, used to send analytics.}
     \label{fig:inviteClicked}
 \end{figure}
+
+Analytics are very important for Konnektid and for web applications in general, so it was great to be able to manipulate them and understand how they are implemented. It was especially interesting for the new pages, because using Redux for analytics is a really modern technique but also because I am considered responsible for them. This means that if bugs are found (for instance at some point Google analytics were not fired anymore) I am in charge of fixing them.
+
+\subsection{New application}
+\label{ssec:newApp}
+
+At the beginning of August, it has been decided to split the Konnektid application into two websites: one focused on free use and community building, and the other containing the market place (i.e. professional teachers and course offering) for members willing to pay for learning. 
+
+A whole new Git repository has been created, with all the required infrastructure, including the UI components library. Some of my last achievements as a trainee were frontend pages for the new website, such as the homepage ({\sc attachment}~\ref{ssec:newHome}). I also implemented user interfaces for entire flows, like \guillemotleft{} Finding a teacher \guillemotright{}. It is a new functionality, proper to the market place, which allows members to specify what they want to learn and how (for instance, private or group classes) so that Konnektid can find a suitable teacher for them.
+
+Technically speaking, these tasks were not particularly challenging as they were similar to the ones described in {\sc subsections}~\ref{ssec:ui_components} and ~\ref{ssec:new_pages}. But the creation of this second website made me realize how fast startups evolve, and how decisive choices must sometimes be made when building a company. It is important to be adaptable, creative, and not afraid to try out lots of solutions before succeeding, when working in such a changing environment.
 
 In addition to the technical learnings, this internship has been a great occasion to dive into startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.
