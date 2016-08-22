@@ -65,7 +65,7 @@ ReactJS components act just like functions: they take data as input and output t
 So ReactJS can be summarized as: \framebox{\textbf{component(props, state) => UI}}
 
 A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice, 
-by implementing most of its components presentational. When a state is really needed, a \guillemotleft{} container \guillemotright{} is created on top in order to handle the logic. This parent can then pass props down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
+by implementing most of its components presentational. When a state is really needed, a \guillemotleft{} container \guillemotright{} is created on top in order to handle the logic. This parent can then pass properties down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
 
 Most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
 It makes the code easier to debug, and faster thanks to the optimization performed during compilation~\cite{whyJsx}. {\sc figure}~\ref{fig:jsx} shows that code written in JSX is much more readable than raw JavaScript.
@@ -82,7 +82,7 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 
 Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. In other words, it handles the logic and the data so that React components only have to deal with the presentation.
 
-The store provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type property (usually a constant). Actions are produced by specific functions called \guillemotleft{} action creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
+The store provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type (usually a constant). Actions are produced by specific functions called \guillemotleft{} action creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
 \begin{figure}[H]
     \centering
