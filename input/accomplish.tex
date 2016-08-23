@@ -1,4 +1,4 @@
-\section{Internship accomplishments}
+\section{Internship achievements}
 \label{sec:accomplish}
 
 This section describes the main tasks accomplished during the traineeship, along with the reason why they were needed, the way they have been implemented and the knowledge that they brought.
@@ -117,7 +117,7 @@ I used redux-form in the container on top of the BecomeTeacherForm component, to
 
 Then, the error to display (if any) and the validation of the email can be used in the component, respectively via \textit{email.error} and \textit{email.valid}. The error will appear in red under the corresponding input, to inform the user that something is wrong and give improvement indications. The validation is used to able or not the \guillemotleft{} Send \guillemotright{} action, as on {\sc figure}~\ref{fig:signUpFlow} where the button is disabled because the email field is empty.
 
-The remaining task for this project was to create a GraphQL mutation to send the request email to Konnektid. To do so, I started by creating \guillemotleft{} notifyRegisteredTeacherMutation.js \guillemotright{}, which takes as input a \guillemotleft{} TeacherRegistration \guillemotright{} object containing all the fields of the form and their values. When \guillemotleft{} Send \guillemotright{} is clicked, the mutation is called in the \guillemotleft{} becomeTeacherModal \guillemotright{} reducer, via the \textit{completeRegistrationProcess} method visible on {\sc figure}~\ref{fig:completeRegistration}.
+The remaining task for this project was to create a GraphQL mutation to notify Konnektid of the registration request. To do so, I started by creating \guillemotleft{} notifyRegisteredTeacherMutation.js \guillemotright{}, which takes as input a \guillemotleft{} TeacherRegistration \guillemotright{} object containing all the fields of the form and their values. When \guillemotleft{} Send \guillemotright{} is clicked, the mutation is called in the \guillemotleft{} becomeTeacherModal \guillemotright{} reducer, via the \textit{completeRegistrationProcess} method visible on {\sc figure}~\ref{fig:completeRegistration}.
 
  \begin{figure}[H]
     \centering
@@ -126,7 +126,14 @@ The remaining task for this project was to create a GraphQL mutation to send the
     \label{fig:completeRegistration}
 \end{figure}
 
-This asynchronous function fires the \textit{COMPLETE\_REGISTRATION\_PROCESS} action, and if the mutation is successful sends \textit{COMPLETE\_REGISTRATION\_PROCESS\_SUCCESS} which updates the screen from \guillemotleft{} form \guillemotright{} to \guillemotleft{} success \guillemotright{}. Otherwise, \textit{COMPLETE\_REGISTRATION\_PROCESS\_FAIL} is returned and the screen becomes \guillemotleft{} error \guillemotright{}.
+This asynchronous function fires the \textit{COMPLETE\_REGISTRATION\_PROCESS} action, and if the mutation is successful sends \textit{COMPLETE\_REGISTRATION\_PROCESS\_SUCCESS}, updating the screen to \guillemotleft{} success \guillemotright{}. Otherwise, \textit{COMPLETE\_REGISTRATION\_PROCESS\_FAIL} is returned and the screen becomes \guillemotleft{} error \guillemotright{}.
+
+Then, in \guillemotleft{} notifyRegisteredTeacherMutation.js \guillemotright{}, I had to handle three things: 
+\begin{itemize}[noitemsep]
+    \item Internally send an email to the Konnektid team, to inform them of the registration request;
+    \item Create a task in Asana with the applicant's data, in a dedicated project;
+    \item Send an email to the teacher-to-be, as a confirmation that the request has been sent.
+\end{itemize}
 
 The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{ssec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it, even if it was challenging to build everything from scratch with technologies I had never used before.
 
@@ -208,15 +215,40 @@ Then, I built the dropdowns, respectively added to KndPrivateHeader via \textit{
 
 I was responsible for this new navigation project, which means that I had to keep the other developers informed of the progress by regular status updates. Once it was finished, I organized a demonstration for it, so that the whole team could see it and give feedback. Unfortunately, the comments were not all positive, and some of the changes had to be reversed. For the developers team, it was a reminder to always validate the design mockups with the rest of the team before implementing them. Personnally, this experience taught me to take responsability for the code I produce, and to accept critics on it despite the time spent to write it.
 
-\subsection{Analytics}
+\subsection{Web analytics}
 \label{ssec:analytics}
 
-Another assignment of the internship was to work on improving the web analytics, that are a precious help for testing the new features and proving the business model. I got to implement them in both old and new pages.
+Web analytics consist in collecting all the details about a website's usage (e.g. which buttons are most clicked) and traffic (e.g. how many page views per day). Konnektid mainly uses them as a market research tool, to gather information about the users and their experience with the web application. Almost all possible interactions on the platform are tracked: this data is then analyzed, to determine where improvements are needed but also to provide statistics as proof of the business model. 
 
-For the new pages, such as courses, the implementation has already been detailed in {\sc section}~\ref{sec:analytics} so I will just briefly describe my contribution. For reminder, analytics there use Redux actions with a type to determine what event to fire, and data to provide required information if any. First, I created all needed action creators, to build the necessary actions with explicit types and relevant data. Then, I had to link these to Google Analytics and Mixpanel, by implementing the \textit{mapActionsToAnalytics} function that have been shown on {\sc figure}~\ref{fig:mapActions}. 
+If it is decided to refactor an existing feature, analytics help to test whether the changes actually had an impact, and if it is a positive one. This process can be iterated until satisfying results are obtained. Also, after the addition of a new functionality, analytics provide valuable insights on how often it is used, how well it achieves its goals, and how it should be enhanced.
 
-Sometimes, analytics need to be improved in old pages, usually when adding a supplementary button. This has been the case when I added an \guillemotleft{} Invite friends \guillemotright{} call-to-action (\guillemotleft{} CTA \guillemotright{}) 
-after a member offered to teach somebody (screen on {\sc figure}~\ref{fig:afterOffer}).
+During my internship, I had to implement the analytics in the new pages, from a list of all the related events that needed to be tracked. I will here describe the building process for only one of them: make a booking from a course page. 
+
+Analytics in new pages are closely related to the Redux actions introduced in {\sc subsection}~\ref{ssec:tools}. Indeed, when a user interacts with the website, a corresponding Redux action is created and along with it an analytics event is fired. For example, if a member decides to book a course with a professional teacher, he confirms it by clicking an \guillemotleft{} Enroll \guillemotright{} button. As soon as this is done, the function \textit{completeEnrollProcess} from {\sc figure}~\ref{fig:enroll} is called.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{figure/enroll.png}
+    \caption{The action creator called when a user books a course.}
+    \label{fig:enroll}
+\end{figure}
+
+This function is a Redux action creator: it returns a Redux action, containing a type (\guillemotleft{} COMPLETE\_ENROLL\_PROCESS \guillemotright{}) and some data (course id, teacher id\ldots). The action is then mapped to the analytics by the \textit{mapActionsToAnalytics} function, visible on {\sc figure}~\ref{fig:mapActions}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.9]{figure/mapActions.png}
+    \caption{The function mapping Redux actions to analytics.}
+    \label{fig:mapActions}
+\end{figure}
+
+The returned object contains two fields, the method (always \guillemotleft{} events \guillemotright{} no matter the action) and the args. The args represent the data needed for the analytics, that will be displayed and analyzed by two tools: 
+
+\textbf{Google Analytics} offering numerous services: calculation of conversion rates, estimation of sales, information on used devices\ldots Plus, it provides help for marketing and advertising~\cite{googleAnalytics}. 
+
+\textbf{Mixpanel} focusing on funnels, i.e. visual representations of how users move through a series of events. This aims at finding out where users abandon and why~\cite{mixpanel}.
+
+In old pages, analytics sometimes need to be improved, either when an extra information requires measurement or when an existing functionality has been modified. This was the case when I added an \guillemotleft{} Invite friends \guillemotright{} call-to-action (\guillemotleft{} CTA \guillemotright{}) after a member offered to teach somebody (screen on {\sc figure}~\ref{fig:afterOffer}).
 
 \begin{figure}[H]
     \centering
@@ -225,9 +257,9 @@ after a member offered to teach somebody (screen on {\sc figure}~\ref{fig:afterO
     \label{fig:afterOffer}
 \end{figure}
 
-Konnektid wanted to track the clicks on this new CTA, to compare its performance to the other Invite friends buttons dispatched on the website. 
+Konnektid wanted to track the clicks on this new CTA, to compare its performance to the other Invite friends buttons dispatched on the website. So, I had to figure out how the analytics are fired in the old pages, that do not use Redux.
 
-So, I had to figure out how the analytics are fired in the old pages, as they do not use Redux. Instead, a helper called \textit{connectAnalytics} passes down the \textit{analytics} property to the component, that is then accessed via \textit{getAnalytics()}. It contains a certain number of methods, each one corresponding to a possible event. In this case I used an existing one, \textit{inviteFriendsClicked}. It takes as parameter a constant representing the source of the event, i.e. from where in the application it has been fired. The possible values for this constant are defined inside the \guillemotleft{} constants \guillemotright{} folder, in \guillemotleft{} InviteFriendsConstants.js \guillemotright{}. This file contains all possible sources for the Invite friends event, so I added \guillemotleft{} AFTER\_OFFER \guillemotright{} to it, as visible on {\sc figure}~\ref{fig:inviteFriendsConstants}.
+Instead, a helper called \textit{connectAnalytics} passes down the \textit{analytics} property to the component, that is then accessed via \textit{getAnalytics()}. It contains a certain number of methods, each one corresponding to a possible event. In this case I used an existing one, \textit{inviteFriendsClicked}. It takes as parameter a constant representing the source of the event, i.e. from where in the application it has been fired. The possible values for this constant are defined inside the \guillemotleft{} constants \guillemotright{} folder, in \guillemotleft{} InviteFriendsConstants.js \guillemotright{}. This file contains all possible sources for the Invite friends event, so I added \guillemotleft{} AFTER\_OFFER \guillemotright{} to it, as visible on {\sc figure}~\ref{fig:inviteFriendsConstants}.
 
 \begin{figure}[H]
     \centering
@@ -245,7 +277,7 @@ I could then define \textit{inviteClicked()} ({\sc figure}~\ref{fig:inviteClicke
     \label{fig:inviteClicked}
 \end{figure}
 
-Analytics are very important for Konnektid, and for web applications in general, so it was great to be able to manipulate them and understand how they are implemented. It was especially interesting for the new pages, because using Redux for analytics is a modern technique but also because I am considered responsible for them. This means that if bugs are found (for instance at some point Google analytics were not fired anymore) I am in charge of fixing them.
+Analytics are very important for Konnektid, and for web applications in general, so it was great to be able to manipulate them and understand how they work. It was a whole new concept to me, and I was impressed to see how they are used, not only to enhance the website's UX/UI but also to prove the business model. Implementation-wise, it was especially interesting in the new pages, because using Redux for analytics is a rather modern technique.
 
 \subsection{New application}
 \label{ssec:newApp}
@@ -255,5 +287,3 @@ At the beginning of August, it has been decided to split the Konnektid applicati
 A whole new Git repository has been created, with all the required infrastructure, including the UI components library. Some of my last achievements as a trainee were frontend pages for the new website, such as the homepage ({\sc attachment}~\ref{ssec:newHome}). I also implemented user interfaces for entire flows, like \guillemotleft{} Find a teacher \guillemotright{}: it is a new functionality, proper to the market place, which allows members to specify what they want to learn and how (for instance, private or group classes) so that Konnektid can find a suitable teacher for them.
 
 Technically speaking, these tasks were not particularly challenging as they were similar to the ones described in {\sc subsections}~\ref{ssec:ui_components} and ~\ref{ssec:new_pages}. But the creation of this second website made me realize how fast startups evolve, and how decisive choices must sometimes be made when building a company. It is important to be adaptable, creative, and not afraid to try out lots of solutions before succeeding, when working in such a changing environment.
-
-In addition to the technical learnings, this internship has been a great occasion to dive into startup life and to discover the process of company building. This requires a solid project management system, and the one used at Konnektid is explained in {\sc section}~\ref{sec:management}.

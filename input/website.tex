@@ -53,7 +53,7 @@ The website is principally developed in JavaScript, HTML and SCSS. It features a
 \subsubsection{ReactJS}
 \label{sssec:react}
 
-ReactJS is an open-source front-end JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. ReactJs implements a \guillemotleft{} virtual DOM \guillemotright{}, i.e. a lightweight representation of the view, from which the markup is created and inserted into the actual DOM. Then for each component, at initialization a \textit{render()} method is called, that generates the corresponding slice of DOM. Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
+ReactJS is an open source frontend JavaScript library, used to create reusable components that can be composed in order to build user interfaces. It differs from other libraries by its automatic way of keeping the DOM up-to-date. ReactJs implements a \guillemotleft{} virtual DOM \guillemotright{}, i.e. a lightweight representation of the view, from which the markup is created and inserted into the actual DOM. Then for each component, at initialization a \textit{render()} method is called, that generates the corresponding slice of DOM. Then, whenever the data changes or events are emitted, \textit{render()} returns a minimal set of modifications to apply to the DOM.
 This makes web applications much faster, and easier to build~\cite{whyReact}.
 
 ReactJS components act just like functions: they take data as input and output the corresponding UI in return. They can manipulate two different kinds of data:
@@ -80,7 +80,7 @@ It makes the code easier to debug, and faster thanks to the optimization perform
 \subsubsection{Redux}
 \label{sssec:redux}
 
-Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, that stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. In other words, it handles the logic and the data so that React components only have to deal with the presentation.
+Redux is a predictable container for JavaScript applications~\cite{reduxDoc}, in other words, it handles the logic and the data so that React components only have to deal with the presentation. It stocks the whole state of the application into one object tree called \guillemotleft{} store \guillemotright{}. 
 
 The store provides methods to access the state (\textit{store.getState()}) and to modify it (\textit{store.dispatch()}). The second method takes a parameter, an \guillemotleft{} action \guillemotright{}, which is a JavaScript object describing what happened and containing at least a type (usually a constant). Actions are produced by specific functions called \guillemotleft{} action creators \guillemotright{}, as shown on {\sc figure}~\ref{fig:action}.
 
@@ -105,7 +105,7 @@ To summarize, Redux works as follows: \framebox{\textbf{reducer(previousState, a
 \subsubsection{Node.js}
 \label{sssec:node}
 
-Konnektid's server-side code is mostly based on Node.js, an asynchronous event-driven JavaScript runtime. It is particularly efficient because it uses Google Chrome's open-source V8 engine, that is able to quickly analyze and execute JavaScript code~\cite{v8}.
+Konnektid's server-side code is mostly based on Node.js, an asynchronous event-driven JavaScript runtime. It is particularly efficient because it uses Google Chrome's open source V8 engine, that is able to quickly analyze and execute JavaScript code~\cite{v8}.
 
 Node.js's non-blocking code architecture is one of the reasons why it is particularly fast: the program does not need to wait to finish an action before launching a new one~\cite{node}. This is achieved by associating each input/output operation (such as a database query) to a callback function that will be fired as soon as the operation is over. In between, the system can work on other tasks, as illustrated on {\sc figure}~\ref{fig:callback}.
 
