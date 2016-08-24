@@ -1,7 +1,11 @@
-\section{Github}
+\section{Development workflow}
 \label{sec:github}
 
-To manage and host the code of the web application, Konnektid's developers use Github. It is an application built on top of Git, a distributed version control system popular for its branching and merging functionalities~\cite{git}. As Git is originally based on command line, Github provides an interface to visualize all Git events such as commits, merges, and more.
+\textbf{Note: clarify environments (diagram?)}
+
+To manage and host the code of the web application, Konnektid's developers use Github. It is an application built on top of Git, a distributed version control system popular for its branching and merging functionalities~\cite{git}. As Git is originally based on command line, Github provides a clearer interface to visualize all Git events such as commits, merges, and more. 
+
+Konnetid uses private repositories to store code, which are similar to public repositories except that they are not accessible to everyone: users need permission from the repository's owner if they want to see and modify its content.
 
 \subsection{Environments}
 \label{ssec:env}
@@ -12,7 +16,7 @@ Konnektid's website is deployed in three distinct environments, defined by the c
 
 \textbf{alpha} is a pre-release of new features, useful to provide further tests, fix remaining bugs, and make sure that the everything is compatible with \textit{production}. The rest of the Konnektid team also has access to it, so that they can see and try out the latest functionalities.
 
-\textbf{production} contains the version published on \url{www.konnektid.com}.
+\textbf{production} contains the version published on \url{https://www.konnektid.com/}.
 
 When implementing an important modification in the code (for instance, change the general navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This trick assures that the critical changes will not affect the other branches.
 

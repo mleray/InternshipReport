@@ -1,0 +1,59 @@
+\documentclass[11pt]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[frenchb]{babel}
+
+\usepackage{couvresumesPFE} % utilisation du package pfe.sty pour cr�er la couverture et la page de r�sum�s en fran�ais et en anglais
+
+\begin{document}
+\pagestyle{empty}
+\fontfamily{cmss}
+\selectfont
+
+% LES DIFFERENTS CHAMPS DE LA COUVERTURE
+\ordre{PFE-INFO-2016-26}  % Le num�ro d'ordre donn� par le service de la recherche
+\auteur{Maud}{LERAY}  % Pr�nom et nom de l'�tudiant
+\sautverticalnegatif{1.4} 
+% Valeur en cm du saut vertical n�gatif (ie. vers le haut)
+% Modifier cette valeur si le pr�nom et le nom de l'auteur ne sont pas positionn�s au bon endroit par rapport � la ligne "Projet de Fin d'Etudes"
+% Si le pr�nom et le nom tiennent sur la ligne, laisser valeur = 1.4
+\specialite{INFO}  % Nom de la sp�cialit�
+\anneeuniversitaire{2015 - 2016}  % Ann�e universitaire
+\titre{Improvements and new features for the web application}  % sujet du PFE
+\entreprisenom{Konnektid}  % Nom de l'entreprise
+\tuteur{Simone}{Potenza}  % Pr�nom et nom du tuteur en entreprise
+\correspondantINSA{Bruno}{Arnaldi}  % Pr�nom et nom du correspondant INSA
+\datesout{05/09/2016}  % Date de la soutenance du PFE
+\entrepriselogo{Logo de l'entreprise:}{logo_konnektid}{5} 
+% Remplacer le 1er param�tre "(Emplacement du logo de l'entreprise)" par un espace, le texte n'appara�tra plus 
+% Remplacer le 2�me param�tre "insaPFE" par le nom du fichier correspondant au logo de l'entreprise
+% Ajuster le 3�me param�tre ici "1" par la largeur souhait�e (en cm) pour l'affichage du logo de l'entreprise
+% S'il n'y a pas de logo � afficher, remplacer chacun des 3 param�tres par un espace
+%
+% RESUMES EN FRAN�AIS ET EN ANGLAIS
+\resumefrancais{Ce stage de fin d'\'{e}tudes de 6 mois a \'{e}t\'{e} r\'{e}alis\'{e} \`{a} Amsterdam dans une startup appel\'{e}e Konnektid. Il s'agit d'une plateforme d'\'{e}change de connaissances entre voisins. Le challenge actuel pour l'entreprise est de valider leur mod\`{e}le financier, bas\'{e} sur des enseignants professionnels qui payent pour publier leur classes sur le site web et y trouver des \'{e}tudiants proches de chez eux.\\
+
+Cela implique de cr\'{e}er de nouvelles fonctionnalit\'{e}s au sein de l'application, et ce fut l'objectif principal du stage.\\
+
+Les principaux langages utilis\'{e}s pendant le stage sont JavaScript, HTML et CSS. J'ai aussi manipul\'{e} un certain nombre de librairies modernes telles que ReactJS ou Redux. Mes t\^{a}ches \'{e}taient tr\`{e}s vari\'{e}es, m\^{e}me si la plupart consistaient \`{a} cr\'{e}er les interfaces pour de nouveaut\'{e}s du site web, \`{a} partir de maquettes. Par exemple, j'ai aussi impl\'{e}ment\'{e} un syst\`{e}me d'analytiques permettant de relever les actions des utilisateurs sur le site, ce qui aide \`{a} d\'{e}tecter les zones ayant besoin d'am\'{e}liorations. \\
+
+J'ai aussi appris \`{a} utiliser Github de fa\c{c}on efficace malgr\'{e} une configuration plus complexe, avec plusieurs environnements de d\'{e}veloppement.\\ 
+
+Finalement, faire partie d'une startup permet de r\'{e}aliser l'importance de la communication et de la collaboration lors de la gestion de projet. L'\'{e}quipe est petite, mais l'entraide est tr\`{e}s pr\'{e}sente et l'avis de chacun est appr\'{e}ci\'{e} lors des r\'{e}unions et des brainstorms.}
+\resumeanglais{This 6-month internship took place in Amsterdam in a startup called Konnektid. It is a skill-sharing platform specifically built for neighbours. The company's objective for the year is to validate their business model, based on professional teachers who pay to publish courses on the website and to find students nearby.\\
+
+This involves the creation of new features in the application, and this was the most important goal of the traineeship.\\
+
+The main langages that were used are JavaScript, HTML, and CSS. I also got to use some modern libraries such as ReactJS or Redux. My tasks were very diverse, even if most of them implied building interfaces for the new pages and features of the website, based on mockups. For instance, I also implemented the analytics used to collect actions performed by the users of the application, which helps defining where improvements are needed.\\
+
+I also learned how to use Github in an efficient way despite a more complex configuration with several development environments.\\
+
+Finally, being part of a startup made me realize the importance of communication and collaboration in project management. The team is small, but there is a lot of mutual help and everyone's opinion matters during meetings and brainstorms.}
+% Les r�sum�s en fran�ais et en anglais sont positionn�s cote � cote 
+% Une hauteur de cadre a �t� d�finie pour que les zones r�serv�es aux r�sum�s tiennent sur une seule page : ne pas la modifier 
+
+\makepfe{insa}  % cr�e la couverture et la page avec les r�sum�s (fran�ais et anglais)
+
+\end{document}
+
+

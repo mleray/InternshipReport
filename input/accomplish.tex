@@ -43,7 +43,7 @@ It has been explained in {\sc subsection}~\ref{ssec:concept} that Konnektid's ma
 professional teachers. This requires the implementation of several new pages and functionalities, and lots have been built during the internship. Among them, one will be described here: the course page.
 
 It refers to the page used by teachers to create, edit and publish a course. It had to be built from scratch, for both desktop and mobile, based on designs
-made by Konnektid's former designer. It is now released and used by professional teachers, and a desktop example is visible in {\sc attachment}~\ref{ssec:courseDesktop}.
+made by Konnektid's former designer. It is now released and used by professional teachers, and a desktop example is visible in {\sc attachment}~\ref{sec:courseDesktop}.
 
 The page features two main elements:
 
@@ -54,7 +54,7 @@ The teacher name is a direct link to his or her profile. This section also provi
 (methodology, requirements\ldots). The left part, thinner, shows practical information about the course (format, length\ldots) and another \guillemotleft{} Enroll now \guillemotright{} button with a reminder of the price. Below this are the sharing functionalities: Facebook, Twitter,
 email, and WhatsApp on mobile.
 
-The initial step in the implementation was to create the corresponding route, to indicate that \url{www.konnektid.com/course/:id} (where \textit{id} is the course identifier) leads to the \guillemotleft{} Course \guillemotright{}e route handler. It is a JavaScript file rendering the Course component inside of the website layout. Later on, when the UI is finished and the logic is added using Redux, the route handler renders the Course container instead of the component.
+The initial step in the implementation was to create the corresponding route, to indicate that \url{https://www.konnektid.com/course/:id} (where \textit{id} is the course identifier) leads to the \guillemotleft{} Course \guillemotright{} route handler. It is a JavaScript file rendering the Course component inside of the website layout. Later on, when the UI is finished and the logic is added using Redux, the route handler renders the Course container instead of the component.
 
 To build the Course component, the first challenge was to decide how to divide it in sub-components, each of them implemented in their own folder with local CSS styles as explained in {\sc subsection}~\ref{ssec:ui_components}. For instance, the biggest bottom part shown on {\sc figure}~\ref{fig:courseDescription} is a component called \guillemotleft{} CourseDescriptionCard \guillemotright{}.
 
@@ -135,7 +135,7 @@ Then, in \guillemotleft{} notifyRegisteredTeacherMutation.js \guillemotright{}, 
     \item Send an email to the teacher-to-be, as a confirmation that the request has been sent.
 \end{itemize}
 
-The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{ssec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it, even if it was challenging to build everything from scratch with technologies I had never used before.
+The final desktop version of the new teachers landing page is available in {\sc attachment}~\ref{sec:teachersPage}. It was great to follow the creation process from A to Z, and to be fully responsible for it, even if it was challenging to build everything from scratch with technologies I had never used before.
 
 \subsection{New navigation}
 \label{ssec:new_nav}
@@ -284,6 +284,6 @@ Analytics are very important for Konnektid, and for web applications in general,
 
 At the beginning of August, it has been decided to split the Konnektid application into two websites: one focused on free use and community building, and the other containing the market place (i.e. professional teachers and course offering) for members willing to pay for learning. 
 
-A whole new Git repository has been created, with all the required infrastructure, including the UI components library. Some of my last achievements as a trainee were frontend pages for the new website, such as the homepage ({\sc attachment}~\ref{ssec:newHome}). I also implemented user interfaces for entire flows, like \guillemotleft{} Find a teacher \guillemotright{}: it is a new functionality, proper to the market place, which allows members to specify what they want to learn and how (for instance, private or group classes) so that Konnektid can find a suitable teacher for them.
+A whole new Git repository has been created, with all the required infrastructure, including the UI components library. Some of my last achievements as a trainee were frontend pages for the new website, such as the homepage ({\sc attachment}~\ref{sec:newHome}). I also implemented user interfaces for entire flows, like \guillemotleft{} Find a teacher \guillemotright{}: it is a new functionality, proper to the market place, which allows members to specify what they want to learn and how (for instance, private or group classes) so that Konnektid can find a suitable teacher for them.
 
 Technically speaking, these tasks were not particularly challenging as they were similar to the ones described in {\sc subsections}~\ref{ssec:ui_components} and ~\ref{ssec:new_pages}. But the creation of this second website made me realize how fast startups evolve, and how decisive choices must sometimes be made when building a company. It is important to be adaptable, creative, and not afraid to try out lots of solutions before succeeding, when working in such a changing environment.

@@ -6,7 +6,7 @@ This section describes the main characteristics of the website, and the technolo
 \subsection{Single-page application}
 \label{ssec:spa}
 
-\url{www.konnektid.com} is built as a single-page application (\guillemotleft{} SPA \guillemotright{}).
+\url{https://www.konnektid.com/} is built as a single-page application (\guillemotleft{} SPA \guillemotright{}).
 A SPA distinguishes from other web applications by loading one unique web page, and the totality of its necessary code, right from the start.
 After that initial load, all of the logic (presentation, business, routing\ldots) is handled by the client side, in Konnektid's case through JavaScript.
 And when the user interacts with the page, only the affected parts of the user interface (\guillemotleft{} UI \guillemotright{}) are updated.
@@ -91,7 +91,7 @@ The store provides methods to access the state (\textit{store.getState()}) and t
     \label{fig:action}
 \end{figure}
 
-To specify how the application's state is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions~\footnote{Functions that always return the same result given the same argument(s)} with no side effects, that take the previous state and an action, and output an object containing the new state. The previous state is never modified, so that it can be returned in default case (e.g. for an unknown action). The Redux behaviour is illustrated on {\sc figure}~\ref{fig:reduxSumup}.
+To specify how the application's state is transformed by actions, Redux uses \guillemotleft{} reducers \guillemotright{}. They are pure functions~\footnote{Functions that always return the same result given the same argument(s), because they have no internal state.} with no side effects, that take the previous state and an action, and output an object containing the new state. The previous state is never modified, so that it can be returned in default case (e.g. for an unknown action). The Redux behaviour is illustrated on {\sc figure}~\ref{fig:reduxSumup}.
 
 \begin{figure}[H]
     \centering
