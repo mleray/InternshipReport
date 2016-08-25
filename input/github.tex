@@ -1,8 +1,6 @@
 \section{Development workflow}
 \label{sec:github}
 
-\textbf{Note: clarify environments (diagram?)}
-
 To manage and host the code of the web application, Konnektid's developers use Github. It is an application built on top of Git, a distributed version control system popular for its branching and merging functionalities~\cite{git}. As Git is originally based on command line, Github provides a clearer interface to visualize all Git events such as commits, merges, and more. 
 
 Konnetid uses private repositories to store code, which are similar to public repositories except that they are not accessible to everyone: users need permission from the repository's owner if they want to see and modify its content.
@@ -10,22 +8,29 @@ Konnetid uses private repositories to store code, which are similar to public re
 \subsection{Environments}
 \label{ssec:env}
 
-Konnektid's website is deployed in three distinct environments, defined by the code itself but also by their unique configuration for the application. They are described in the following paragraphs.
+Konnektid's website is deployed in three distinct environments, defined by the code itself but also by their own configuration for the application. The workflow is described on {\sc figure}~\ref{fig:githubFlow}.
 
-\textbf{development} is a working directory for current tasks, each of them in a different local branch created from \textit{alpha}. Once the code is ready, a pull request is opened in order to let the other developers know that the feature is completed. Then, the branch is first merged in \textit{alpha} before being released in \textit{production}. 
+\begin{figure}[h]
+    \centering
+    \includegraphics[scale=0.9]{figure/githubFlow.png}
+    \caption{A diagram representing the Github workflow.}
+    \label{fig:githubFlow}
+\end{figure}
 
-\textbf{alpha} is a pre-release of new features, useful to provide further tests, fix remaining bugs, and make sure that the everything is compatible with \textit{production}. The rest of the Konnektid team also has access to it, so that they can see and try out the latest functionalities.
+\textbf{development} is a directory for tasks currently being worked on, each of them in a local branch called \guillemotleft{} feature branch \guillemotright{}. Feature branches should be short lived, ideally not more than a few days, otherwise they cause integration issues because of the tasks other developers finish in the meantime. When the code is ready, the branch is merged in \textit{alpha}. 
 
-\textbf{production} contains the version published on \url{https://www.konnektid.com/}.
+\textbf{alpha} is a pre-release of new features, useful to provide further tests, fix remaining bugs, and make sure that everything is compatible with \textit{production}. The rest of the Konnektid team also has access to it, so that they can see and try out the latest functionalities, and eventually suggest some last changes to be made (for instance in the copywriting). Once everything is approved and fully tested, the code is released in \textit{production}.
 
-When implementing an important modification in the code (for instance, change the general navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This trick assures that the critical changes will not affect the other branches.
+\textbf{production} contains the code actually published on \url{https://www.konnektid.com/}.
 
-A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, the resulting pull request is manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
+When implementing an important modification in the code (for instance, change the general navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This technique assures that the critical changes will not affect the other branches.
+
+A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, it is manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
 
 \subsection{Reviewing process}
 \label{ssec:reviewing}
 
-When a piece of code is ready to be merged, first in \textit{alpha}, the developer who implemented it adds a \guillemotleft{} state/need review \guillemotright{} tag to the corresponding pull request. Then, another member of the development team will take a look at the changes. This verification has three main goals:
+When a piece of code is ready to be merged, first in \textit{alpha}, the developer who implemented it opens a pull request~\footnote{User-friendly interface for notifying others of the completed feature and discussing proposed changes.} for it, with a \guillemotleft{} state/need review \guillemotright{} tag. Then, another member of the development team will take a look at the changes. This verification has three main goals:
 
 \begin{itemize}[noitemsep]
 	\item Verify that the changes fulfill their goal;
