@@ -23,7 +23,7 @@ This is achieved by using a specific architecture introduced on {\sc figure}~\re
 
 A few more details about the different parts of the architecture:
 \begin{itemize}[noitemsep]
-    \item DOM~\footnote{Document Object Model: provides a representation of the document structured as a tree, and methods to access it.} is write-only:
+    \item DOM~\footnote{Document Object Model: provides a representation of the document structured as a tree, with access methods.} is write-only:
     no data is read from it, it just outputs HTML, operations and events;
     \item Models handles all the data and state of the application;
     \item Views update the UI, depending on DOM events and models, as pictured on {\sc figure}~\ref{fig:view}.
@@ -65,7 +65,7 @@ ReactJS components act just like functions: they take data as input and output t
 So ReactJS can be summarized as: \framebox{\textbf{component(props, state) => UI}}
 
 A good practice it to keep the number of stateful components as low as possible~\cite{state}. Konnektid follows this advice, 
-by implementing most of its components presentational. When a state is really needed, a \guillemotleft{} container \guillemotright{} is created on top in order to handle the logic. This parent can then pass properties down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
+by implementing most of its components presentational. When a state is really needed, a container is created on top in order to handle the logic. This parent can then pass properties down to the stateless component which only handles the rendering. This technique respects another recommanded convention: the single responsibility principle (each class or module should only have one task to handle). 
 
 Most developers (including the ones at Konnetid) use React with JSX, a preprocessor step that adds XML-like syntax to JavaScript.
 It makes the code easier to debug, and faster thanks to the optimization performed during compilation~\cite{whyJsx}. {\sc figure}~\ref{fig:jsx} shows that code written in JSX is much more readable than raw JavaScript.
@@ -116,9 +116,7 @@ Node.js's non-blocking code architecture is one of the reasons why it is particu
     \label{fig:callback}
 \end{figure}
 
-These non-blocking operations are possible in Node.js because they are handled by the multi-threaded system kernel, via an event loop~\cite{eventLoop}.
-
-Finally, another strong suit of Node.js is its package ecosystem, npm, which allows developers to share solutions to particular issues~\cite{npm}. Anyone can reuse these pieces of code in their own projects, then npm facilitates checking on updates that were made and downloading them.
+Another strong suit of Node.js is its package ecosystem, \textit{npm}, which allows developers to share solutions to particular issues~\cite{npm}. Anyone can reuse these pieces of code in their own projects, then \textit{npm} facilitates checking on updates that were made and downloading them.
 
 \subsubsection{GraphQL}
 \label{sssec:grqphql}
@@ -134,4 +132,4 @@ GraphQL is used by Konnektid to communicate between the client and the server. T
 
 There are a few advantages to use GraphQL instead of REST APIs~\cite{graphQL}. First of all, as noticeable on {\sc figure}~\ref{fig:query}, the query is shaped just like the data it returns: as a hierarchy of fields. This makes it more natural to write and also easier to understand. Another particularity of GraphQL is that its queries are encoded in the client and not in the server, allowing to return exactly what the client asks for and nothing more. Moreover, GraphQL is strongly-typed: it controls both the correctness and the validity of the syntax of each query before executing it.
 
-In the current section the main technologies have been introduced, now {\sc section}~\ref{sec:github} describes the development process and the use of Github inside the Konnekid team.
+In the current section the main technologies have been introduced, now {\sc section}~\ref{sec:github} describes the development workflow and the use of Github inside the Konnekid team.

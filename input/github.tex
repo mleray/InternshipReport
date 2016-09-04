@@ -5,27 +5,20 @@ To manage and host the code of the web application, Konnektid's developers use G
 
 Konnetid uses private repositories to store code, which are similar to public repositories except that they are not accessible to everyone: users need permission from the repository's owner if they want to see and modify its content.
 
-\subsection{Environments}
-\label{ssec:env}
+\subsection{Branching structure}
+\label{ssec:repo}
 
-Konnektid's website is deployed in three distinct environments, defined by the code itself but also by their own configuration for the application. The workflow is described on {\sc figure}~\ref{fig:githubFlow}.
+The Konnektid repository is organized in two permanent branches, each of them with a specific configuration: 
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[scale=0.9]{figure/githubFlow.png}
-    \caption{A diagram representing the Github workflow.}
-    \label{fig:githubFlow}
-\end{figure}
+\textbf{production} contains the latest stable version of the application, deployed at \url{https://www.konnektid.com/}.
 
-\textbf{development} is a directory for tasks currently being worked on, each of them in a local branch called \guillemotleft{} feature branch \guillemotright{}. Feature branches should be short lived, ideally not more than a few days, otherwise they cause integration issues because of the tasks other developers finish in the meantime. When the code is ready, the branch is merged in \textit{alpha}. 
+\textbf{alpha} is a pre-release of new features, useful to provide further tests, fix remaining bugs, and make sure that everything is compatible with \textit{production}. When developers want to release, and if everything is approved and fully tested, they merge \textit{alpha} in \textit{production} and deploy.  The rest of the Konnektid team also has access to this branch, deployed at \url{https://www.alpha.konnektid.com/}. This allows them to see and try out the latest functionalities, and eventually suggest some last-minute changes to be made (for instance in the copywriting).
 
-\textbf{alpha} is a pre-release of new features, useful to provide further tests, fix remaining bugs, and make sure that everything is compatible with \textit{production}. The rest of the Konnektid team also has access to it, so that they can see and try out the latest functionalities, and eventually suggest some last changes to be made (for instance in the copywriting). Once everything is approved and fully tested, the code is released in \textit{production}.
+When a developer wants to start building a new functionality, he/she branches out from \textit{alpha} to create a local branch called \guillemotleft{} feature branch \guillemotright{}. When the code is ready, this branch is merged in \textit{alpha} and then removed. Feature branches should be short lived, ideally not more than a few days, otherwise they cause integration issues because of the tasks other developers finish and merge in the meantime.
 
-\textbf{production} contains the code actually published on \url{https://www.konnektid.com/}.
+Before implementing an important modification in the code (for instance, changing the general navigation), a \guillemotleft{} feature flag \guillemotright{} is created. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This technique assures that the critical changes will not affect the other branches.
 
-When implementing an important modification in the code (for instance, change the general navigation), a \guillemotleft{} feature flag \guillemotright{} is used. It is a boolean, defined in the configuration files, that decides whether or not the new feature should be displayed in the branch. This technique assures that the critical changes will not affect the other branches.
-
-A piece of code does not automatically move from \textit{development} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, it is manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
+A code difference does not automatically move from \textit{alpha} to \textit{production}. First, it has to pass a certain number of tests before being committed and pushed. Then, it is manually reviewed: this is clarified in {\sc subsection}~\ref{ssec:reviewing}.
 
 \subsection{Reviewing process}
 \label{ssec:reviewing}
